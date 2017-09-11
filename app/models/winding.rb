@@ -1,0 +1,2 @@
+class Winding < ApplicationRecord
+end
