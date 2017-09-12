@@ -1,0 +1,67 @@
+<%= form_with(model: winding, local: true) do |form| %>
+  <% if winding.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(winding.errors.count, "error") %> prohibited this winding from being saved:</h2>
+
+      <ul>
+      <% winding.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :length %>
+    <%= form.text_field :length, id: :winding_length %>
+  </div>
+
+  <div class="field">
+    <%= form.label :radius %>
+    <%= form.text_field :radius, id: :winding_radius %>
+  </div>
+
+  <div class="field">
+    <%= form.label :offset %>
+    <%= form.text_field :offset, id: :winding_offset %>
+  </div>
+
+  <div class="field">
+    <%= form.label :filamentWidth %>
+    <%= form.text_field :filamentWidth, id: :winding_filamentWidth %>
+  </div>
+
+  <div class="field">
+    <%= form.label :filamentLength %>
+    <%= form.text_field :filamentLength, id: :winding_filamentLength %>
+  </div>
+
+  <div class="field">
+    <%= form.label :gelPot %>
+    <%= form.text_field :gelPot, id: :winding_gelPot %>
+  </div>
+
+  <div class="field">
+    <%= form.label :density %>
+    <%= form.text_field :density, id: :winding_density %>
+  </div>
+
+  <div class="field">
+    <%= form.label :layers %>
+    <%= form.number_field :layers, id: :winding_layers %>
+  </div>
+
+  <div class="field">
+    <%= form.label :angle %>
+    <%= form.text_field :angle, id: :winding_angle %>
+  </div>
+
+  <div class="field">
+    <%= form.label :windingdate %>
+    <%= form.datetime_select :windingdate, id: :winding_windingdate %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

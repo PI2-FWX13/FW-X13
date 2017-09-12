@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  length: 1.5
+  radius: 1.5
+  offset: 1.5
+  filamentWidth: 1.5
+  filamentLength: 1.5
+  gelPot: 1.5
+  density: 1.5
+  layers: 1
+  angle: 1.5
+  windingdate: 2017-09-11 20:09:11
+
+two:
+  length: 1.5
+  radius: 1.5
+  offset: 1.5
+  filamentWidth: 1.5
+  filamentLength: 1.5
+  gelPot: 1.5
+  density: 1.5
+  layers: 1
+  angle: 1.5
+  windingdate: 2017-09-11 20:09:11

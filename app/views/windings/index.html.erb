@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Windings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Length</th>
+      <th>Radius</th>
+      <th>Offset</th>
+      <th>Filamentwidth</th>
+      <th>Filamentlength</th>
+      <th>Gelpot</th>
+      <th>Density</th>
+      <th>Layers</th>
+      <th>Angle</th>
+      <th>Windingdate</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @windings.each do |winding| %>
+      <tr>
+        <td><%= winding.length %></td>
+        <td><%= winding.radius %></td>
+        <td><%= winding.offset %></td>
+        <td><%= winding.filamentWidth %></td>
+        <td><%= winding.filamentLength %></td>
+        <td><%= winding.gelPot %></td>
+        <td><%= winding.density %></td>
+        <td><%= winding.layers %></td>
+        <td><%= winding.angle %></td>
+        <td><%= winding.windingdate %></td>
+        <td><%= link_to 'Show', winding %></td>
+        <td><%= link_to 'Edit', edit_winding_path(winding) %></td>
+        <td><%= link_to 'Destroy', winding, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Winding', new_winding_path %>
