@@ -25,16 +25,24 @@ class WindingsController < ApplicationController
   # POST /windings.json
   def create
     @winding = Winding.new(winding_params)
-    #Codigo para gerar gcode a 90 graus
     generate_gcode
 
     respond_to do |format|
-      if @winding.save
-        format.html { redirect_to @winding, notice: 'Winding was successfully created.' }
-        format.json { render :show, status: :created, location: @winding }
+      #validation for wire length
+      needed_wire = 360*@winding.length*(@winding.layers+1)/@winding.filamentWidth
+      print "WIRE NEEDED " + needed_wire
+      
+      if @winding.filamentLength > needed_wire
+        if @winding.save
+          format.html { redirect_to @winding, notice: 'Winding was successfully created.' }
+          format.json { render :show, status: :created, location: @winding }
+        else
+          format.html { render :new }
+          format.json { render json: @winding.errors, status: :unprocessable_entity }
+        end
       else
         format.html { render :new }
-        format.json { render json: @winding.errors, status: :unprocessable_entity }
+
       end
     end
   end
