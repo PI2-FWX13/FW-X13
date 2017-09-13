@@ -25,6 +25,8 @@ class WindingsController < ApplicationController
   # POST /windings.json
   def create
     @winding = Winding.new(winding_params)
+    #Codigo para gerar gcode a 90 graus
+    generate_gcode
 
     respond_to do |format|
       if @winding.save
@@ -70,5 +72,28 @@ class WindingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def winding_params
       params.require(:winding).permit(:length, :radius, :offset, :filamentWidth, :filamentLength, :gelPot, :density, :layers, :angle, :windingdate)
+    end
+
+    def generate_gcode
+      camadas = @winding.layers
+      c = @winding.length
+      e = @winding.filamentWidth
+      x = 0
+      r = @winding.radius
+      o = @winding.offset
+      file = File.open("gcode","w")
+
+      (1..camadas+1).step(1) do |i|
+
+          if i%2==1
+              x = 360*c/e*i
+              file.write("G1 X #{x} Y #{c} Z #{r+o}\n")
+
+          elsif i%2==0
+              x = 360*c/e*i
+              file.write("G1 X #{x} Y 0 Z #{r+o}\n")
+            end
+      end
+      file.close
     end
 end
