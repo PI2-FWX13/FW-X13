@@ -1,5 +1,19 @@
-<h1>New Winding</h1>
+<h1 style="text-align: center">Fillament winding</h1>
+<div style="text-align: center">
+<%= bootstrap_form_for(@winding) do |f| %>
+  <%= f.number_field :angle, placeholder: "90 graus" %>
+  <%= f.number_field :length, placeholder: "100 mm" %>
+  <%= f.number_field :radius, placeholder: "30 mm" %>
+  <%= f.number_field :offset, placeholder: "10 mm" %>
+  <%= f.number_field :filamentWidth, placeholder: "3 mm" %>
+  <%= f.number_field :filamentLength, placeholder: "1000000 mm" %>
+  <%= f.number_field :gelPot, placeholder: "3000 s"%>
+  <%= f.number_field :density, placeholder: "60%" %>
+  <%= f.number_field :layers, placeholder: "10" %>
+  </br>
+  <%= f.submit "Começar" %>
+<% end %>
 
-<%= render 'form', winding: @winding %>
 
 <%= link_to 'Back', windings_path %>
+</div>

@@ -30,8 +30,8 @@ class WindingsController < ApplicationController
     respond_to do |format|
       #validation for wire length
       needed_wire = 360*@winding.length*(@winding.layers+1)/@winding.filamentWidth
-      print "WIRE NEEDED " + needed_wire
-      
+      #print "WIRE NEEDED " + needed_wire
+
       if @winding.filamentLength > needed_wire
         if @winding.save
           format.html { redirect_to @winding, notice: 'Winding was successfully created.' }
