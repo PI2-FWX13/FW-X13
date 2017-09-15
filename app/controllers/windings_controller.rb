@@ -83,23 +83,37 @@ class WindingsController < ApplicationController
     end
 
     def generate_gcode
+
       camadas = @winding.layers
+      a = @winding.angle
       c = @winding.length
       e = @winding.filamentWidth
-      x = 0
-      r = @winding.radius
       o = @winding.offset
+      r = @winding.radius
+      x = 0
+
       file = File.open("gcode","w")
 
-      (1..camadas+1).step(1) do |i|
+      radians = a * Math::PI / 180
+      delay = (r + o)/ Math.tan(radians)
+      if(a == 90)
+        mult = 1
+        l = 1
+      else
+        mult = (2*Math::PI*r)/(e/Math.cos(radians))
+        l = (r/Math.tan(radians))*2
+      end
+      (1..camadas*mult+1).step(1) do |i|
 
           if i%2==1
-              x = 360*c/e*i
-              file.write("G1 X #{x} Y #{c} Z #{r+o}\n")
+            file.write("G1 Y #{delay} Z #{r+o}\n")
+            x = (360*c/e*i)/l
+            file.write("G1 X #{x} Y #{c+delay} Z #{r+o}\n")
 
           elsif i%2==0
-              x = 360*c/e*i
-              file.write("G1 X #{x} Y 0 Z #{r+o}\n")
+              file.write("G1 Y #{c - delay} Z #{r+o}\n")
+              x = (360*c/e*i)/l
+              file.write("G1 X #{x} Y #{-1*delay} Z #{r+o}\n")
             end
       end
       file.close
