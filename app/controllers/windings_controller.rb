@@ -16,7 +16,6 @@ class WindingsController < ApplicationController
   def new
     @winding = Winding.new
   end
-
   # POST /windings
   # POST /windings.json
   def create
@@ -55,6 +54,9 @@ class WindingsController < ApplicationController
     end
   end
 
+
+  def choose
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_winding
