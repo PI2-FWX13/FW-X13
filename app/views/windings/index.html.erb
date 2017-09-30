@@ -32,9 +32,8 @@
         <td><%= winding.layers %></td>
         <td><%= winding.angle %></td>
         <td><%= winding.windingdate %></td>
-        <td><%= link_to 'Show', winding %></td>
-        <td><%= link_to 'Edit', edit_winding_path(winding) %></td>
-        <td><%= link_to 'Destroy', winding, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', show_winding_path(winding) %></td>
+        <td><%= link_to 'Destroy', destroy_winding_path(winding), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
