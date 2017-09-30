@@ -3,11 +3,12 @@ Rails.application.routes.draw do
   root :to => "sessions#index"
 
   get 'windings/new' => 'windings#new' , as: 'new_winding'
-  post 'windings/create' => 'windings#create' , as: 'create_windings'
+  post 'windings/' => 'windings#create' , as: 'create_windings'
   get 'windings/' => 'windings#index' , as: 'windings'
   get 'windings/show/:id' => 'windings#show' , as: 'show_winding'
   get 'windings/destroy/:id', controller: 'windings', action: 'destroy', as: 'destroy_winding'
   get 'windings/choose', controller: 'windings', action: 'choose' , as: 'choose_winding'
+  get 'windings/monitor', controller: 'windings', action: 'monitor' , as: 'monitor_winding'
 
   get 'sessions/index' => 'sessions#index' , as: 'index_sessions'
 
