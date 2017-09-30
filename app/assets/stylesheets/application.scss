@@ -22,7 +22,6 @@
  }
 #footer-nav {
   @extend .grey, .darken-3;
-
   bottom:0;
   right:0;
   left:0;
@@ -50,4 +49,12 @@ html, body {
 
 .brand-logo{
   height: 63px;
+}
+#complexshape{
+    background: url('complexshape.jpg');
+    height: 20px;
+    width: 20px;
+    display: block;
+    /* Other styles here */
+
 }
