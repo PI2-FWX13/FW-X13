@@ -2,19 +2,19 @@
 
   <ul class="button-list">
     <li class="button-adjust">
-      <a class="waves-effect waves-light btn-large" id="btn-index">
-        <i class="material-icons right">adjust</i>Cilindro</a>
+      <a class="waves-effect waves-light btn-large" id="btn-index"href="/windings/new">
+        <i class="material-icons right">all_out</i>Cilindro</a>
     </li>
     <li class="button-adjust">
-      <a class="waves-effect waves-light btn-large" id="btn-index" href="/windings">
-        <i class="material-icons right">all_out</i>Cone</a>
+      <a class="waves-effect waves-light btn-large" id="btn-index" disabled>
+        <i class="material-icons right">adjust</i>Cone</a>
     </li>
     <li class="button-adjust" >
-      <a class="waves-effect waves-light btn-large" id="btn-index" href="/configurations">
+      <a class="waves-effect waves-light btn-large" id="btn-index" disabled>
         <i class="material-icons right">gesture</i>Forma complexa
       </a>
     </li>
 
   </ul>
-
+  <%= link_to 'Back', index_sessions_path %>
 </div>

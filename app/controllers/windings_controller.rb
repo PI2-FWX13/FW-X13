@@ -22,23 +22,18 @@ class WindingsController < ApplicationController
     @winding = Winding.new(winding_params)
     generate_gcode
 
-    respond_to do |format|
-      #validation for wire length
-      needed_wire = 360*@winding.length*(@winding.layers+1)/@winding.filamentWidth
-      #print "WIRE NEEDED " + needed_wire
+    #validation for wire length
+    needed_wire = 360*@winding.length*(@winding.layers+1)/@winding.filamentWidth
+    #print "WIRE NEEDED " + needed_wire
 
-      if @winding.filamentLength > needed_wire
-        if @winding.save
-          format.html { redirect_to @winding, notice: 'Winding was successfully created.' }
-          format.json { render :show, status: :created, location: @winding }
-        else
-          format.html { render :new }
-          format.json { render json: @winding.errors, status: :unprocessable_entity }
-        end
+    if @winding.filamentLength > needed_wire
+      if @winding.save
+        redirect_to :action => "monitor"
       else
-        format.html { render :new }
-
+        #deal with errors
       end
+    else
+      #deal with errors
     end
   end
 
@@ -54,8 +49,10 @@ class WindingsController < ApplicationController
     end
   end
 
-
   def choose
+  end
+
+  def monitor
   end
   private
     # Use callbacks to share common setup or constraints between actions.
