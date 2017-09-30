@@ -17,10 +17,6 @@ class WindingsController < ApplicationController
     @winding = Winding.new
   end
 
-  # GET /windings/1/edit
-  def edit
-  end
-
   # POST /windings
   # POST /windings.json
   def create
@@ -47,19 +43,7 @@ class WindingsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /windings/1
-  # PATCH/PUT /windings/1.json
-  def update
-    respond_to do |format|
-      if @winding.update(winding_params)
-        format.html { redirect_to @winding, notice: 'Winding was successfully updated.' }
-        format.json { render :show, status: :ok, location: @winding }
-      else
-        format.html { render :edit }
-        format.json { render json: @winding.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+
 
   # DELETE /windings/1
   # DELETE /windings/1.json

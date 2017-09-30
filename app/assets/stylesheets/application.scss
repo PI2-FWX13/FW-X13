@@ -17,15 +17,15 @@
 
  @import "materialize/components/color";
 
- #header-nav {
+#header-nav {
    @extend .grey, .darken-3;
  }
 #footer-nav {
   @extend .grey, .darken-3;
-  position: fixed;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
+
+  bottom:0;
+  right:0;
+  left:0;
 }
 html, body {
   height: 100%;
@@ -46,17 +46,8 @@ html, body {
   }
  @import 'materialize';
 
- .content-btn{ text-align: center;}
- .botaoEnviar{
-     width: 350px;
-     text-align: center;
-     padding: 15px 20px;
-     border: 1px solid #eee;
-     border-radius: 6px;
-     background-color: #FCC302;
-     font-size: 18px;
- }
- 
+.content-btn{ text-align: center;}
+
 .brand-logo{
   height: 63px;
 }
