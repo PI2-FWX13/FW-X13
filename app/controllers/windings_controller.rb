@@ -1,6 +1,6 @@
 class WindingsController < ApplicationController
   before_action :set_winding, only: [:show, :edit, :update, :destroy]
-
+  require 'net/scp'
   # GET /windings
   # GET /windings.json
   def index
@@ -26,8 +26,10 @@ class WindingsController < ApplicationController
     needed_wire = 360*@winding.length*(@winding.layers+1)/@winding.filamentWidth
     #print "WIRE NEEDED " + needed_wire
 
+
     if @winding.filamentLength > needed_wire
       if @winding.save
+        sendgcode
         redirect_to :action => "monitor"
       else
         #deal with errors
@@ -37,7 +39,25 @@ class WindingsController < ApplicationController
     end
   end
 
+  # https://github.com/net-ssh/net-ssh
+  # https://stackoverflow.com/questions/5644110/how-do-i-transfer-files-using-ssh-and-scp-using-ruby-calls
+  # https://raspberrypi.stackexchange.com/questions/37920/how-do-i-set-up-networking-wifi-static-ip-address
+  def sendgcode
 
+    begin
+      host = '192.168.25.12'
+      login = 'pi'
+      password = 'raspberry'
+
+      Net::SCP.start(host, login, :password => password) do |scp|
+        puts 'SCP Started!'
+        scp.upload('gcode', '/home/pi/')
+      end
+    rescue Exception => e
+      puts e.message
+      puts e.backtrace.inspect
+    end
+  end
 
   # DELETE /windings/1
   # DELETE /windings/1.json
