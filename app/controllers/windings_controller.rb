@@ -1,5 +1,6 @@
 class WindingsController < ApplicationController
   before_action :set_winding, only: [:show, :edit, :update, :destroy]
+
   require 'net/scp'
   # GET /windings
   # GET /windings.json
@@ -39,26 +40,6 @@ class WindingsController < ApplicationController
     end
   end
 
-  # https://github.com/net-ssh/net-ssh
-  # https://stackoverflow.com/questions/5644110/how-do-i-transfer-files-using-ssh-and-scp-using-ruby-calls
-  # https://raspberrypi.stackexchange.com/questions/37920/how-do-i-set-up-networking-wifi-static-ip-address
-  def sendgcode
-
-    begin
-      host = '192.168.25.12'
-      login = 'pi'
-      password = 'raspberry'
-
-      Net::SCP.start(host, login, :password => password) do |scp|
-        puts 'SCP Started!'
-        scp.upload('gcode', '/home/pi/')
-      end
-    rescue Exception => e
-      puts e.message
-      puts e.backtrace.inspect
-    end
-  end
-
   # DELETE /windings/1
   # DELETE /windings/1.json
   def destroy
@@ -72,9 +53,59 @@ class WindingsController < ApplicationController
   def choose
   end
 
+  @@current_temperature = 0
+
   def monitor
+    thr = Thread.new {
+      host = '192.168.25.12'
+      #192.168.25.11
+      login = 'pi'
+      password = 'raspberry'
+
+      Net::SSH.start(host, login, :password => password) do |ssh|
+        while(@@current_temperature != 'END')
+          output = ssh.exec!"tail -1 temperature.out"
+          @@current_temperature = output
+
+          puts "output"
+          sleep
+        end
+      end
+    }
   end
+
+  def gettemperature
+    #a = Random.rand(11)
+    #render json: a
+    puts @@current_temperature
+    puts "ASOKSAOSAOKSAKOSAOKSA"
+    render json: @@current_temperature
+
+  end
+
   private
+
+    # https://github.com/net-ssh/net-ssh
+    # https://stackoverflow.com/questions/5644110/how-do-i-transfer-files-using-ssh-and-scp-using-ruby-calls
+    # https://raspberrypi.stackexchange.com/questions/37920/how-do-i-set-up-networking-wifi-static-ip-address
+    # scp ../sensor/get_temperature.c pi@192.168.25.12:
+    def sendgcode
+
+      begin
+        host = '192.168.25.12'
+        #192.168.25.11
+        login = 'pi'
+        password = 'raspberry'
+
+        Net::SCP.start(host, login, :password => password) do |scp|
+          puts 'SCP Started!'
+          scp.upload('gcode', '/home/pi/')
+        end
+      rescue Exception => e
+        puts e.message
+        puts e.backtrace.inspect
+      end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_winding
       @winding = Winding.find(params[:id])
