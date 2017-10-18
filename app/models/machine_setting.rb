@@ -1,0 +1,2 @@
+class MachineSetting < ApplicationRecord
+end

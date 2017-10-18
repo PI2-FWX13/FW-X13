@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Offset:</strong>
+  <%= @machine_setting.offset %>
+</p>
+
+<p>
+  <strong>Maximum size mandril:</strong>
+  <%= @machine_setting.maximum_size_mandril %>
+</p>
+
+<p>
+  <strong>Size radius:</strong>
+  <%= @machine_setting.size_radius %>
+</p>
+
+<%= link_to 'Edit', edit_machine_setting_path(@machine_setting) %> |
+<%= link_to 'Back', machine_settings_path %>

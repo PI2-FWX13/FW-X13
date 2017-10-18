@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  offset: 1
+  maximum_size_mandril: 1
+  size_radius: 1
+
+two:
+  offset: 1
+  maximum_size_mandril: 1
+  size_radius: 1
