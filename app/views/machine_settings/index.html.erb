@@ -18,9 +18,9 @@
         <td><%= machine_setting.offset %></td>
         <td><%= machine_setting.maximum_size_mandril %></td>
         <td><%= machine_setting.size_radius %></td>
-        <td><%= link_to 'Show', show_machine_setting_path(machine_setting) %></td>
-        <td><%= link_to 'Edit', edit_machine_setting_path(machine_setting) %></td>
-        <td><%= link_to 'Destroy', destroy_machine_setting_path(machine_setting), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', machine_setting_path(machine_setting.id) %></td>
+        <td><%= link_to 'Edit', machine_setting_edit_path(machine_setting.id) %></td>
+        <td><%= link_to 'Destroy', machine_setting_destroy_path(machine_setting.id), data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Machine Setting', new_machine_setting_path %>
+<%= link_to 'New Machine Setting', machine_setting_new_path %>

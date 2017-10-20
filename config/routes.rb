@@ -12,12 +12,11 @@ Rails.application.routes.draw do
 
   get 'sessions/index' => 'sessions#index' , as: 'index_sessions'
 
-  get 'machine_settings/', :to => 'machine_settings#index', :as => 'machine_settings'
-  get 'machine_settings/new' => 'machine_settings#new' , as: 'new_machine_setting'
-  post 'machine_settings/' => 'machine_settings#create' , as: 'create_machine_settings'
-  get 'machine_settings/show/:id' => 'machine_settings#show' , as: 'show_machine_setting'
-  get 'machine_settings/edit/:id' => 'machine_settings#edit', as: 'edit_machine_setting'
-  patch 'machine_settings/:id/edit', controller: 'machine_settings', action: 'update', as: 'update_machine_setting'
-
-  get 'machine_settings/destroy/:id', controller: 'machine_settings', action: 'destroy', as: 'destroy_machine_setting'
+  get 'machine_settings/', :to => 'machine_settings#index', :as => 'machine_setting_index'
+  get 'machine_settings/new' => 'machine_settings#new' , as: 'machine_setting_new'
+  post 'machine_settings/' => 'machine_settings#create' , as: 'machine_setting_create'
+  get 'machine_settings/show/:id' => 'machine_settings#show' , as: 'machine_setting'
+  get 'machine_settings/edit/:id' => 'machine_settings#edit', as: 'machine_setting_edit'
+  patch 'machine_settings/:id/edit', controller: 'machine_settings', action: 'update', as: 'machine_setting_update'
+  get 'machine_settings/destroy/:id', controller: 'machine_settings', action: 'destroy', as: 'machine_setting_destroy'
 end

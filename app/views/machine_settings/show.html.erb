@@ -15,5 +15,5 @@
   <%= @machine_setting.size_radius %>
 </p>
 
-<%= link_to 'Edit', edit_machine_setting_path(@machine_setting) %> |
-<%= link_to 'Back', machine_settings_path %>
+<%= link_to 'Edit', machine_setting_edit_path(@machine_setting.id) %> |
+<%= link_to 'Back', machine_setting_index_path %>

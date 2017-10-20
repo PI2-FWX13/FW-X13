@@ -1,4 +1,4 @@
-<%= form_with(model: machine_setting, local: true) do |form| %>
+<%= form_for(@machine_setting) do |form| %>
   <% if machine_setting.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(machine_setting.errors.count, "error") %> prohibited this machine_setting from being saved:</h2>

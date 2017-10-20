@@ -28,7 +28,7 @@ class MachineSettingsController < ApplicationController
 
     respond_to do |format|
       if @machine_setting.save
-        format.html { redirect_to machine_settings_url, notice: 'Machine setting was successfully created.' }
+        format.html { redirect_to @machine_setting, notice: 'Machine setting was successfully created.' }
         format.json { render :show, status: :created, location: @machine_setting }
       else
         format.html { render :new }
@@ -56,7 +56,7 @@ class MachineSettingsController < ApplicationController
   def destroy
     @machine_setting.destroy
     respond_to do |format|
-      format.html { redirect_to machine_settings_url, notice: 'Machine setting was successfully destroyed.' }
+      format.html { redirect_to machine_setting_index_path, notice: 'Machine setting was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
