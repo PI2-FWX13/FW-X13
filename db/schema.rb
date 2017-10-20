@@ -12,23 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20171018184907) do
 
-  create_table "configurations", force: :cascade do |t|
-    t.integer "max_width"
-    t.integer "max_radius"
-    t.integer "max_offset"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "machine_settings", force: :cascade do |t|
-    t.integer "offset"
-    t.integer "maximum_size_mandril"
-    t.integer "size_radius"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "madril_configurations", force: :cascade do |t|
     t.integer "offset"
     t.integer "maximum_size_mandril"
     t.integer "size_radius"

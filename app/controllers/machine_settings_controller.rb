@@ -28,7 +28,7 @@ class MachineSettingsController < ApplicationController
 
     respond_to do |format|
       if @machine_setting.save
-        format.html { redirect_to @machine_setting, notice: 'Machine setting was successfully created.' }
+        format.html { redirect_to machine_settings_url, notice: 'Machine setting was successfully created.' }
         format.json { render :show, status: :created, location: @machine_setting }
       else
         format.html { render :new }
