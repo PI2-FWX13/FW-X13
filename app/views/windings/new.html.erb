@@ -1,6 +1,7 @@
 <h1 style="text-align: center">Fillament winding</h1>
 <div style="text-align: center">
 <%= bootstrap_form_for(@winding) do |f| %>
+  <%= f.text_field :projectName, placeholder: "Name" %>
   <%= f.number_field :angle, placeholder: "90 graus" %>
   <%= f.number_field :length, placeholder: "100 mm" %>
   <%= f.number_field :radius, placeholder: "30 mm" %>
