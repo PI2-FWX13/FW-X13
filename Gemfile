@@ -61,3 +61,5 @@ gem 'jquery-rails'
 gem 'materialize-sass'
 
 gem 'jquery-turbolinks'
+
+gem 'chart-js-rails'

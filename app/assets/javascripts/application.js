@@ -15,4 +15,5 @@
 //= require jquery.turbolinks
 //= require turbolinks
 //= require materialize-sprockets
+//= require Chart.min
 //= require_tree .
