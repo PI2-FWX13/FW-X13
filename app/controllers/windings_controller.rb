@@ -14,7 +14,12 @@ class WindingsController < ApplicationController
 
   # GET /windings/new
   def new
-    @winding = Winding.new
+    if Mandril.count == 0
+      @mandril = Mandril.new(compriment: 0, radius: 0, mandril_type: params[:type])
+    else
+      @mandril = Mandril.first
+    end
+    @winding = Winding.new(winding_type: params[:type])
   end
   # POST /windings
   # POST /windings.json

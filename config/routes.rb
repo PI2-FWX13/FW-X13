@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root :to => "sessions#index"
 
-  get 'windings/new' => 'windings#new' , as: 'new_winding'
+  get 'windings/new/:type' => 'windings#new' , as: 'new_winding'
   post 'windings/' => 'windings#create' , as: 'create_windings'
   get 'windings/' => 'windings#index' , as: 'windings'
   get 'windings/show/:id' => 'windings#show' , as: 'show_winding'
@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   get 'windings/monitor', controller: 'windings', action: 'monitor' , as: 'monitor_winding'
 
   get 'sessions/index' => 'sessions#index' , as: 'index_sessions'
+
+  get 'mandril/edit/:id' => 'mandrils#edit', as: 'mandril_edit'
+  patch 'mandril/update/:id'=> 'mandrils#update', as: 'mandril_update'
 
   get '/configurations', :to => 'configurations#index', :as => 'configurations'
 end

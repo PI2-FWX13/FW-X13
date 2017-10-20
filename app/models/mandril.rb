@@ -1,0 +1,2 @@
+class Mandril < ApplicationRecord
+end

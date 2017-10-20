@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170911230911) do
+ActiveRecord::Schema.define(version: 20171018183333) do
+
+  create_table "mandrils", force: :cascade do |t|
+    t.float "compriment"
+    t.float "radius"
+    t.string "mandril_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "windings", force: :cascade do |t|
     t.float "length"
@@ -23,6 +31,7 @@ ActiveRecord::Schema.define(version: 20170911230911) do
     t.integer "layers"
     t.float "angle"
     t.datetime "windingdate"
+    t.string "winding_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
