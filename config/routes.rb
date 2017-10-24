@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get 'windings/destroy/:id', controller: 'windings', action: 'destroy', as: 'destroy_winding'
   get 'windings/choose', controller: 'windings', action: 'choose' , as: 'choose_winding'
   get 'windings/monitor', controller: 'windings', action: 'monitor' , as: 'monitor_winding'
-
+  get 'windings/graph', controller: 'windings', action: 'graph', as: 'monitor_graph'
   get 'sessions/index' => 'sessions#index' , as: 'index_sessions'
 
   get 'mandril/edit/:id' => 'mandrils#edit', as: 'mandril_edit'

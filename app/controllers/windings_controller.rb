@@ -31,15 +31,18 @@ class WindingsController < ApplicationController
     needed_wire = 360*@winding.length*(@winding.layers+1)/@winding.filamentWidth
     #print "WIRE NEEDED " + needed_wire
 
-    if @winding.filamentLength > needed_wire
+
+  #  if @winding.filamentLength > needed_wire
       if @winding.save
-        redirect_to :action => "monitor"
-      else
+        session[:id] = @winding.id
+        redirect_to action: "graph"
+  #      redirect_to :action => "monitor"
+  #    else
         #deal with errors
       end
-    else
+  #  else
       #deal with errors
-    end
+  #  end
   end
 
 
@@ -55,6 +58,16 @@ class WindingsController < ApplicationController
   end
 
   def choose
+  end
+
+  def graph
+    id = session[:id]
+    if id == nil
+      redirect_to action: "new", type: "Cylinder"
+    else
+      @winding = Winding.find(id)
+      session[:id] = nil
+    end
   end
 
   def monitor
