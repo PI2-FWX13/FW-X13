@@ -56,6 +56,7 @@ class WindingsController < ApplicationController
   @@current_temperature = 0
 
   def monitor
+=begin
     thr = Thread.new {
       host = '192.168.25.12'
       #192.168.25.11
@@ -72,13 +73,29 @@ class WindingsController < ApplicationController
         end
       end
     }
+=end
   end
 
   def gettemperature
     #a = Random.rand(11)
     #render json: a
+    host = '192.168.25.12'
+    #192.168.25.11
+    login = 'pi'
+    password = 'raspberry'
+
+    Net::SSH.start(host, login, :password => password) do |ssh|
+      #while(@@current_temperature != 'END')
+        output = ssh.exec!"tail -1 /home/pi/temperature.out"
+        @@current_temperature = output
+
+        puts "output"
+        #sleep
+      #end
+    end
+
     puts @@current_temperature
-    puts "ASOKSAOSAOKSAKOSAOKSA"
+    
     render json: @@current_temperature
 
   end
