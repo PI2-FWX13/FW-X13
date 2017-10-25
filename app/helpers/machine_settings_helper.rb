@@ -1,0 +1,2 @@
+module MachineSettingsHelper
+end

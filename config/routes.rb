@@ -16,4 +16,11 @@ Rails.application.routes.draw do
   patch 'mandril/update/:id'=> 'mandrils#update', as: 'mandril_update'
 
   get '/configurations', :to => 'configurations#index', :as => 'configurations'
+  get 'machine_settings/', :to => 'machine_settings#index', :as => 'machine_setting_index'
+  get 'machine_settings/new' => 'machine_settings#new' , as: 'machine_setting_new'
+  post 'machine_settings/' => 'machine_settings#create' , as: 'machine_setting_create'
+  get 'machine_settings/show/:id' => 'machine_settings#show' , as: 'machine_setting'
+  get 'machine_settings/edit/:id' => 'machine_settings#edit', as: 'machine_setting_edit'
+  patch 'machine_settings/:id/edit', controller: 'machine_settings', action: 'update', as: 'machine_setting_update'
+  get 'machine_settings/destroy/:id', controller: 'machine_settings', action: 'destroy', as: 'machine_setting_destroy'
 end

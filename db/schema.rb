@@ -10,12 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20171018183333) do
 
   create_table "mandrils", force: :cascade do |t|
     t.float "compriment"
     t.float "radius"
     t.string "mandril_type"
+
+  create_table "machine_settings", force: :cascade do |t|
+    t.integer "offset"
+    t.integer "maximum_size_mandril"
+    t.integer "size_radius"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
