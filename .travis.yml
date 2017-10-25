@@ -1,0 +1,11 @@
+language: ruby
+dist: trusty
+
+install: gem install rails
+
+rvm:
+- 2.3.1
+script:
+- bundle install
+- rails db:migrate
+- bundle exec rspec
