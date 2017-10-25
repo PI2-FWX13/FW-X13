@@ -1,0 +1,38 @@
+<h1>Editing Machine Setting</h1>
+
+<%= form_for @machine_setting,url: {action: "update"} do |form| %>
+  <% if @machine_setting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@machine_setting.errors.count, "error") %> prohibited this machine_setting from being saved:</h2>
+
+      <ul>
+      <% @machine_setting.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :offset %>
+    <%= form.number_field :offset, id: :machine_setting_offset %>
+  </div>
+
+  <div class="field">
+    <%= form.label :maximum_size_mandril %>
+    <%= form.number_field :maximum_size_mandril, id: :machine_setting_maximum_size_mandril %>
+  </div>
+
+  <div class="field">
+    <%= form.label :size_radius %>
+    <%= form.number_field :size_radius, id: :machine_setting_size_radius %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+
+<%= link_to 'Show', @machine_setting %> |
+<%= link_to 'Back', machine_setting_path %>
