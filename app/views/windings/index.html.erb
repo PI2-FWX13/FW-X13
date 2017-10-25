@@ -3,6 +3,12 @@
 <!-- <div class="row">
  -->
       <h2 class="header">Windings</h2>
+
+          <%= form_tag(windings_path, :method => "get", id: "search-form") do %>
+          <%= text_field_tag :search, params[:search], placeholder: "Search Project" %>
+          <%= submit_tag "Search" %>
+          <% end %>
+
           <table class="striped">
             <thead>
               <tr>
@@ -13,7 +19,7 @@
             </thead>
 
             <tbody>
-              <% @windings.each do |winding| %>
+              <% for winding in @windings %>
                 <tr>
                   <td><%= winding.projectName %></td>
                   <td><%= winding.windingdate %></td>
