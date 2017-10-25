@@ -2,7 +2,7 @@ class CreateMachineInformations < ActiveRecord::Migration[5.1]
   def change
     create_table :machine_informations do |t|
       t.string :name
-      t.integer :ip
+      t.string :ip
 
       t.timestamps
     end
