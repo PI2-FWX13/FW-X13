@@ -1,0 +1,2 @@
+class MachineInformation < ApplicationRecord
+end
