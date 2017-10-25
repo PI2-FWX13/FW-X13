@@ -16,7 +16,7 @@
       <tr>
         <td><%= machine_information.name %></td>
         <td><%= machine_information.ip %></td>
-        <td><%= link_to 'Show', machine_information %></td>
+        <td><%= link_to 'Show', index_sessions_path%></td>
         <td><%= link_to 'Edit', edit_machine_information_path(machine_information) %></td>
         <td><%= link_to 'Destroy', machine_information, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

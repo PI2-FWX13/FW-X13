@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :machine_informations
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root :to => "sessions#index"
+  root :to => "machine_informations#index"
 
   get 'windings/new' => 'windings#new' , as: 'new_winding'
   post 'windings/' => 'windings#create' , as: 'create_windings'
