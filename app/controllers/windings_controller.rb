@@ -5,6 +5,11 @@ class WindingsController < ApplicationController
   # GET /windings.json
   def index
     @windings = Winding.all
+    if params[:search]
+      @windings = Winding.search(params[:search]).order("created_at DESC")
+    else 
+      @windings = Winding.all.order('created_at DESC')
+    end
   end
 
   # GET /windings/1
@@ -27,6 +32,7 @@ class WindingsController < ApplicationController
     #print "WIRE NEEDED " + needed_wire
 
     if @winding.filamentLength > needed_wire
+      @winding.windingdate = DateTime.now.to_date
       if @winding.save
         redirect_to :action => "monitor"
       else
