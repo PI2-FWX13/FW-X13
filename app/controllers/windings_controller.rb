@@ -66,7 +66,7 @@ class WindingsController < ApplicationController
       redirect_to action: "new", type: "Cylinder"
     else
       @winding = Winding.find(id)
-      session[:id] = nil
+    #  session[:id] = nil
     end
   end
 

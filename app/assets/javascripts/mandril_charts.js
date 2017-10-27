@@ -17,17 +17,26 @@ function ready(){
     var area = cylinder(radius, length);
 
     var myLineData = {
-      labels: ["","Area"],
+      labels: ["", "", "Area", "", ""],
       datasets: [{
-        label: "Arroz",
-        backgroundColor: "rgba(0,255,0,1)",
-        data: [area, area]
+        label: "Area",
+        backgroundColor: "#bdbdbd",
+        data: [null, area, area, area, null]
       }]
     }
-
     var myLineChart = new Chart(ctx, {
         type: 'line',
         data: myLineData,
+        options: {
+          scales: {
+              yAxes: [{
+                ticks: {
+                  min: (parseInt((0 - area/2)/100 ).toFixed(0)) * 100 - 100,
+                  max: (parseInt((area + area/2)/100 ).toFixed(0)) * 100 + 100
+                }
+              }]
+          }
+        }
     });
   }
   var graphContainer = document.getElementById("graph-container")
