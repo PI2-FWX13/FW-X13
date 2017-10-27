@@ -13,7 +13,7 @@ ActiveRecord::Schema.define(version: 20171025114503) do
 
   create_table "machine_informations", force: :cascade do |t|
     t.string "name"
-    t.integer "ip"
+    t.string "ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
