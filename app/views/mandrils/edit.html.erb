@@ -1,0 +1,12 @@
+<div style="text-align: center">
+<h1>Editing Mandril</h1>
+<%= bootstrap_form_for @mandril,url: {action: "update"} do |f| %>
+  <%= f.number_field :compriment, placeholder: "100 mm" %>
+  <%= f.number_field :radius, placeholder: "100 mm" %>
+  </br>
+  <div style="display: inline-block">
+    <%= f.submit "Done" %>
+  <% end %>
+  <a class="waves-effect waves-light btn" href="/windings/choose" style="color: #fff">Back</a>
+  </div>
+</div>

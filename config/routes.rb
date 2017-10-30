@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root :to => "sessions#index"
 
-  get 'windings/new' => 'windings#new' , as: 'new_winding'
+  get 'windings/new/:type' => 'windings#new' , as: 'new_winding'
   post 'windings/' => 'windings#create' , as: 'create_windings'
   get 'windings/' => 'windings#index' , as: 'windings'
   get 'windings/show/:id' => 'windings#show' , as: 'show_winding'
@@ -12,6 +12,10 @@ Rails.application.routes.draw do
 
   get 'sessions/index' => 'sessions#index' , as: 'index_sessions'
 
+  get 'mandril/edit/:id' => 'mandrils#edit', as: 'mandril_edit'
+  patch 'mandril/update/:id'=> 'mandrils#update', as: 'mandril_update'
+
+  get '/configurations', :to => 'configurations#index', :as => 'configurations'
   get 'machine_settings/', :to => 'machine_settings#index', :as => 'machine_setting_index'
   get 'machine_settings/new' => 'machine_settings#new' , as: 'machine_setting_new'
   post 'machine_settings/' => 'machine_settings#create' , as: 'machine_setting_create'

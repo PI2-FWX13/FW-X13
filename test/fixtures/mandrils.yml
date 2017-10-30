@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  compriment: 1
+  radius: 1
+  type: 
+
+two:
+  compriment: 1
+  radius: 1
+  type: 
