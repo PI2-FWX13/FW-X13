@@ -11,14 +11,15 @@
     </tr>
   </thead>
 
+
   <tbody>
     <% @machine_informations.each do |machine_information| %>
       <tr>
         <td><%= machine_information.name %></td>
         <td><%= machine_information.ip %></td>
         <td><%= link_to 'Show', index_sessions_path%></td>
-        <td><%= link_to 'Edit', edit_machine_information_path(machine_information) %></td>
-        <td><%= link_to 'Destroy', machine_information, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', machine_information_edit_path(machine_information) %></td>
+        <td><%= link_to 'Destroy', machine_information_destroy_path(machine_information.id), data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +27,8 @@
 
 <br>
 
-<%= link_to 'New Machine Information', new_machine_information_path %>
+
+<li class="button-adjust">
+  <a class="waves-effect waves-light btn-large" id="btn-index" href="/machine_informations/new/">
+    <i class="material-icons right">content_paste</i>New Conection</a>
+</li>

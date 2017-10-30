@@ -29,7 +29,7 @@ class MachineInformationsController < ApplicationController
     respond_to do |format|
       if @machine_information.save
         format.html { redirect_to @machine_information, notice: 'Machine information was successfully created.' }
-        format.json { render :show, status: :created, location: @machine_information }
+        format.json { render :index, status: :created, location: @machine_information }
       else
         format.html { render :new }
         format.json { render json: @machine_information.errors, status: :unprocessable_entity }

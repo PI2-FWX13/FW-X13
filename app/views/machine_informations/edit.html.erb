@@ -1,6 +1,32 @@
 <h1>Editing Machine Information</h1>
 
-<%= render 'form', machine_information: @machine_information %>
+<%= form_for @machine_information,url: {action: "update"} do |form| %>
+  <% if machine_information.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(machine_information.errors.count, "error") %> prohibited this machine_information from being saved:</h2>
+
+      <ul>
+      <% machine_information.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :machine_information_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ip %>
+    <%= form.text_field :ip, id: :machine_information_ip %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
 
 <%= link_to 'Show', @machine_information %> |
 <%= link_to 'Back', machine_informations_path %>
