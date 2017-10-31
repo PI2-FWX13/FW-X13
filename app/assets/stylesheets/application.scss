@@ -33,14 +33,15 @@
     color: white;
    @extend .indigo, .darken-1;
   }
-
+  #info-card {
+    text-align: center;
+    margin-top: 5%;
+    width: 40%;
+  }
   html, body {
     height: 100%;
   }
 
-  .button-list{
-    margin-top: 15%;
-  }
 
   .btn{
     @extend .indigo, .darken-1;
@@ -51,7 +52,9 @@
     }
 @import 'materialize';
 
-.content-btn{ text-align: center;}
+.content-btn{
+  text-align: center;
+}
 
 .brand-logo{
   height: 63px;
