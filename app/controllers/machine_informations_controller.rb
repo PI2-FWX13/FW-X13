@@ -28,7 +28,7 @@ class MachineInformationsController < ApplicationController
 
     respond_to do |format|
       if @machine_information.save
-        format.html { redirect_to @machine_information, notice: 'Machine information was successfully created.' }
+        format.html { redirect_to machine_information_index_path, notice: 'Machine information was successfully created.' }
         format.json { render :index, status: :created, location: @machine_information }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class MachineInformationsController < ApplicationController
   def update
     respond_to do |format|
       if @machine_information.update(machine_information_params)
-        format.html { redirect_to @machine_information, notice: 'Machine information was successfully updated.' }
+        format.html { redirect_to machine_information_index_path, notice: 'Machine information was successfully updated.' }
         format.json { render :show, status: :ok, location: @machine_information }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class MachineInformationsController < ApplicationController
   def destroy
     @machine_information.destroy
     respond_to do |format|
-      format.html { redirect_to machine_informations_url, notice: 'Machine information was successfully destroyed.' }
+      format.html { redirect_to machine_information_index_path, notice: 'Machine information was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
