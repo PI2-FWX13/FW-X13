@@ -16,17 +16,25 @@ class WindingsController < ApplicationController
   def new
     if Mandril.count == 0
       @mandril = Mandril.new(compriment: 0, radius: 0, mandril_type: params[:type])
+      @mandril.save
     else
       @mandril = Mandril.first
+      if @mandril.mandril_type != params[:type]
+        @mandril.mandril_type = params[:type]
+      end
     end
-    @winding = Winding.new(winding_type: params[:type])
+    @winding = Winding.new
   end
   # POST /windings
   # POST /windings.json
   def create
+    mandril = Mandril.first
     @winding = Winding.new(winding_params)
-    generate_gcode
+    @winding.winding_type = mandril.mandril_type
 
+    #print "WIRE NEEDED " + needed_wire
+    return if validate_winding_mandril(@winding)
+    generate_gcode
     #validation for wire length
     needed_wire = 360*@winding.length*(@winding.layers+1)/@winding.filamentWidth
     #print "WIRE NEEDED " + needed_wire
@@ -38,7 +46,6 @@ class WindingsController < ApplicationController
         redirect_to action: "graph"
   #      redirect_to :action => "monitor"
   #    else
-        #deal with errors
       end
   #  else
       #deal with errors
