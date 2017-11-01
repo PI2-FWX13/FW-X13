@@ -1,12 +1,106 @@
+
 <%= javascript_include_tag('monitor.js') %>
 
-<h1>
-  Temperature:
-<div id="temperature">
-0
-</div>
-</h1>
+<body>
+      <div class="container">
+         <div class="row">
 
-http://www.raspberry-projects.com/pi/pi-hardware/raspberry-pi-camera/streaming-video-using-vlc-player
-<br/>
-<iframe src="192.168.25.12:8554" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe><a href="https://www.twitch.tv/tifubrasil?tt_content=text_link&tt_medium=live_embed" style="padding:2px 0px 4px; display:block; width:345px; font-weight:normal; font-size:10px; text-decoration:underline;">Assista ao vídeo ao vivo de TifuBrasil em www.twitch.tv</a>
+		      <div class="col s3 teal lighten-5">
+		      	  <h3>Winding Information</h3>
+		          <p>
+		            <strong>Temperature:</strong>
+                <h1>
+                  Temperature:
+                <div id="temperature">
+		            <%# @monitor.temperature %>
+		          </p>
+
+		          <p>
+		            <strong>Time to Complete:</strong>
+		            <%# @monitor.time%>
+		          </p>
+
+		          <p>
+		            <strong>Offset:</strong>
+		            <%# @winding.offset %>
+		          </p>
+		          <p>
+		          	<strong>Mandril:</strong>
+		          </p>
+		      </div>
+
+		      <div class="col s9 teal lighten-4">
+
+		      	<h3>Project Informations</h3>
+		         <p>
+            		<strong>Project Name:</strong>
+		            <%# @winding.projectName %>
+		          </p>
+
+		          <p>
+		            <strong>Length:</strong>
+		            <%# @winding.length %>
+		          </p>
+
+		          <p>
+		            <strong>Radius:</strong>
+		            <%# @winding.radius %>
+		          </p>
+
+		          <p>
+		            <strong>Offset:</strong>
+		            <%# @winding.offset %>
+		          </p>
+
+		          <p>
+		            <strong>Filamentwidth:</strong>
+		            <%# @winding.filamentWidth %>
+		          </p>
+
+		          <p>
+		            <strong>Filamentlength:</strong>
+		            <%# @winding.filamentLength %>
+		          </p>
+
+		          <p>
+		            <strong>Gelpot:</strong>
+		            <%# @winding.gelPot %>
+		          </p>
+
+		          <p>
+		            <strong>Density:</strong>
+		            <%# @winding.density %>
+		          </p>
+
+		          <p>
+		            <strong>Layers:</strong>
+		            <%# @winding.layers %>
+		          </p>
+
+		          <p>
+		            <strong>Angle:</strong>
+		            <%# @winding.angle %>
+		          </p>
+
+		          <p>
+		            <strong>Windingdate:</strong>
+		            <%# @winding.windingdate %>
+		          </p>
+		      </div>
+
+	      <div class="col s9">
+	       <h2>Streaming</h2>
+          <iframe src="192.168.25.12:8554" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe>
+
+	       <div>MONITOR</div>
+
+	       <a class="waves-effect waves-light btn"><i class="material-icons left"></i>Show</a>
+	       <a class="waves-effect waves-light btn"><i class="material-icons left"></i>Hide</a>
+	       <a class="waves-effect red btn"><i class="material-icons left"></i>STOP</a>
+	      </div>
+
+
+
+    </div>
+      </div>
+    </body>
