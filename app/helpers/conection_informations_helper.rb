@@ -1,0 +1,2 @@
+module ConectionInformationsHelper
+end

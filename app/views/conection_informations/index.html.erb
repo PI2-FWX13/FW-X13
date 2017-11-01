@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Conection Informations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Ip</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @conection_informations.each do |conection_information| %>
+      <tr>
+        <td><%= conection_information.name %></td>
+        <td><%= conection_information.ip %></td>
+        <td><%= link_to 'Show', index_sessions_path%></td>
+        <td><%= link_to 'Edit', edit_conection_information_path(conection_information) %></td>
+        <td><%= link_to 'Destroy', conection_information, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Conection Information', new_conection_information_path %>

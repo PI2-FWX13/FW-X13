@@ -1,0 +1,2 @@
+class ConectionInformation < ApplicationRecord
+end

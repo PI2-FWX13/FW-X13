@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  resources :machine_informations
+  resources :conection_informations
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root :to => "machine_informations#index"
+  root :to => "conection_informations#index"
 
   get 'windings/new/:type' => 'windings#new' , as: 'new_winding'
   post 'windings/' => 'windings#create' , as: 'create_windings'
@@ -16,7 +16,6 @@ Rails.application.routes.draw do
   get 'mandril/edit/:id' => 'mandrils#edit', as: 'mandril_edit'
   patch 'mandril/update/:id'=> 'mandrils#update', as: 'mandril_update'
 
-  get '/configurations', :to => 'configurations#index', :as => 'configurations'
   get 'machine_settings/', :to => 'machine_settings#index', :as => 'machine_setting_index'
   get 'machine_settings/new' => 'machine_settings#new' , as: 'machine_setting_new'
   post 'machine_settings/' => 'machine_settings#create' , as: 'machine_setting_create'
