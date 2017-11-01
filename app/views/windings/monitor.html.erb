@@ -1,1 +1,100 @@
-Hello
+<body>
+      <div class="container">
+         <div class="row">
+
+		      <div class="col s3 teal lighten-5">
+		      	  <h3>Winding Information</h3>
+		          <p>
+		            <strong>Temperature:</strong>
+		            <%# @monitor.temperature %>
+		          </p>
+
+		          <p>
+		            <strong>Time to Complete:</strong>
+		            <%# @monitor.time%>
+		          </p>
+
+		          <p>
+		            <strong>Offset:</strong>
+		            <%# @winding.offset %>
+		          </p>
+		          <p>
+		          	<strong>Mandril:</strong>
+		          </p>
+		      </div>
+
+		      <div class="col s9 teal lighten-4">
+
+		      	<h3>Project Informations</h3>
+		         <p>
+            		<strong>Project Name:</strong>
+		            <%# @winding.projectName %>
+		          </p>
+
+		          <p>
+		            <strong>Length:</strong>
+		            <%# @winding.length %>
+		          </p>
+
+		          <p>
+		            <strong>Radius:</strong>
+		            <%# @winding.radius %>
+		          </p>
+
+		          <p>
+		            <strong>Offset:</strong>
+		            <%# @winding.offset %>
+		          </p>
+
+		          <p>
+		            <strong>Filamentwidth:</strong>
+		            <%# @winding.filamentWidth %>
+		          </p>
+
+		          <p>
+		            <strong>Filamentlength:</strong>
+		            <%# @winding.filamentLength %>
+		          </p>
+
+		          <p>
+		            <strong>Gelpot:</strong>
+		            <%# @winding.gelPot %>
+		          </p>
+
+		          <p>
+		            <strong>Density:</strong>
+		            <%# @winding.density %>
+		          </p>
+
+		          <p>
+		            <strong>Layers:</strong>
+		            <%# @winding.layers %>
+		          </p>
+
+		          <p>
+		            <strong>Angle:</strong>
+		            <%# @winding.angle %>
+		          </p>
+
+		          <p>
+		            <strong>Windingdate:</strong>
+		            <%# @winding.windingdate %>
+		          </p>
+		      </div>
+
+	      <div class="col s9">
+	       <h2>Streaming</h2>
+
+	       <div>MONITOR</div>
+
+	       <a class="waves-effect waves-light btn"><i class="material-icons left"></i>Show</a>
+	       <a class="waves-effect waves-light btn"><i class="material-icons left"></i>Hide</a>
+	       <a class="waves-effect red btn"><i class="material-icons left"></i>STOP</a>	
+	      </div>
+
+
+
+    </div>
+      </div>
+    </body>
+          
