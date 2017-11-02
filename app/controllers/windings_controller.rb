@@ -19,7 +19,12 @@ class WindingsController < ApplicationController
 
   # GET /windings/new
   def new
-    @winding = Winding.new
+    if Mandril.count == 0
+      @mandril = Mandril.new(compriment: 0, radius: 0, mandril_type: params[:type])
+    else
+      @mandril = Mandril.first
+    end
+    @winding = Winding.new(winding_type: params[:type])
   end
   # POST /windings
   # POST /windings.json
@@ -31,16 +36,18 @@ class WindingsController < ApplicationController
     needed_wire = 360*@winding.length*(@winding.layers+1)/@winding.filamentWidth
     #print "WIRE NEEDED " + needed_wire
 
-    if @winding.filamentLength > needed_wire
-      @winding.windingdate = DateTime.now.to_date
+
+  #  if @winding.filamentLength > needed_wire
       if @winding.save
-        redirect_to :action => "monitor"
-      else
+        session[:id] = @winding.id
+        redirect_to action: "graph"
+  #      redirect_to :action => "monitor"
+  #    else
         #deal with errors
       end
-    else
+  #  else
       #deal with errors
-    end
+  #  end
   end
 
 
@@ -56,6 +63,16 @@ class WindingsController < ApplicationController
   end
 
   def choose
+  end
+
+  def graph
+    id = session[:id]
+    if id == nil
+      redirect_to action: "new", type: "Cylinder"
+    else
+      @winding = Winding.find(id)
+    #  session[:id] = nil
+    end
   end
 
   def monitor

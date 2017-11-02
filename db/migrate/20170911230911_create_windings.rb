@@ -12,6 +12,7 @@ class CreateWindings < ActiveRecord::Migration[5.1]
       t.integer :layers
       t.float :angle
       t.datetime :windingdate
+      t.string :winding_type
 
       t.timestamps
     end

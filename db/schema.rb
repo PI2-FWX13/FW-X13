@@ -9,8 +9,30 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended that you check this file into your version control system.
+ActiveRecord::Schema.define(version: 20171025114503) do
 
-ActiveRecord::Schema.define(version: 20171004202614) do
+  create_table "machine_informations", force: :cascade do |t|
+    t.string "name"
+    t.string "ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "machine_settings", force: :cascade do |t|
+    t.integer "offset"
+    t.integer "maximum_size_mandril"
+    t.integer "size_radius"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "mandrils", force: :cascade do |t|
+    t.float "compriment"
+    t.float "radius"
+    t.string "mandril_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "windings", force: :cascade do |t|
     t.float "length"
@@ -23,6 +45,7 @@ ActiveRecord::Schema.define(version: 20171004202614) do
     t.integer "layers"
     t.float "angle"
     t.datetime "windingdate"
+    t.string "winding_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "projectName"

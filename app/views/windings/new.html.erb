@@ -1,10 +1,10 @@
-<h1 style="text-align: center">Fillament winding</h1>
-<div style="text-align: center">
+<div style="width: 50%; float: left" >
+<h1 style="text-align: left;">Fillament winding</h1>
 <%= bootstrap_form_for(@winding) do |f| %>
   <%= f.text_field :projectName, placeholder: "Name" %>
   <%= f.number_field :angle, placeholder: "90 graus" %>
-  <%= f.number_field :length, placeholder: "100 mm" %>
-  <%= f.number_field :radius, placeholder: "30 mm" %>
+  <%= f.number_field :length, placeholder: "100 mm", id: "lengthInput" %>
+  <%= f.number_field :radius, placeholder: "30 mm", id: "radiusInput" %>
   <%= f.number_field :offset, placeholder: "10 mm" %>
   <%= f.number_field :filamentWidth, placeholder: "3 mm" %>
   <%= f.number_field :filamentLength, placeholder: "1000000 mm" %>
@@ -12,9 +12,27 @@
   <%= f.number_field :density, placeholder: "60%" %>
   <%= f.number_field :layers, placeholder: "10" %>
   </br>
-  <%= f.submit "Começar" %>
-<% end %>
+  <div style="display: inline-block">
+    <%= f.submit "Start" %>
+  <% end %>
 
+  <a class="waves-effect waves-light btn" href="/mandril/edit/1" style="color: #fff">Edit Mandril</a>
+  <a class="waves-effect waves-light btn" href="/windings/choose" style="color: #fff">Back</a>
+  </div>
+</div>
 
-<%= link_to 'Back', choose_winding_path %>
+<div style="text-align: left; margin-left: 52%">
+  <h1>Mandril Configuration</h1>
+  <p style="font-size: 150%">
+  <strong>Compriment:</strong>
+  <%= @mandril.compriment %> mm
+  </p>
+  <p style="font-size: 150%">
+  <strong>Radius:</strong>
+  <%= @mandril.radius %> mm
+  </p>
+  <p style="font-size: 150%">
+  <strong>Type:</strong>
+  <%= @mandril.mandril_type %>
+  </p>
 </div>
