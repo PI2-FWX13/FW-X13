@@ -1,6 +1,7 @@
 class CreateWindings < ActiveRecord::Migration[5.1]
   def change
     create_table :windings do |t|
+      t.string :projectName
       t.float :length
       t.float :radius
       t.float :offset

@@ -1,10 +1,16 @@
 class WindingsController < ApplicationController
   before_action :set_winding, only: [:show, :edit, :update, :destroy]
 
+  require 'net/scp'
   # GET /windings
   # GET /windings.json
   def index
     @windings = Winding.all
+    if params[:search]
+      @windings = Winding.search(params[:search]).order("created_at DESC")
+    else
+      @windings = Winding.all.order('created_at DESC')
+    end
   end
 
   # GET /windings/1
@@ -40,19 +46,19 @@ class WindingsController < ApplicationController
     #print "WIRE NEEDED " + needed_wire
 
 
-  #  if @winding.filamentLength > needed_wire
+    if @winding.filamentLength > needed_wire
+      @winding.windingdate = DateTime.now.to_date
       if @winding.save
-        session[:id] = @winding.id
-        redirect_to action: "graph"
-  #      redirect_to :action => "monitor"
-  #    else
+        sendgcode
+        redirect_to :action => "monitor"
+      else
+        #deal with errors
       end
   #  else
       #deal with errors
   #  end
   end
-
-
+end
 
   # DELETE /windings/1
   # DELETE /windings/1.json
@@ -78,8 +84,73 @@ class WindingsController < ApplicationController
   end
 
   def monitor
+=begin
+    thr = Thread.new {
+      host = '192.168.25.12'
+      #192.168.25.11
+      login = 'pi'
+      password = 'raspberry'
+
+      Net::SSH.start(host, login, :password => password) do |ssh|
+        while(@@current_temperature != 'END')
+          output = ssh.exec!"tail -1 temperature.out"
+          @@current_temperature = output
+
+          puts "output"
+          sleep
+        end
+      end
+    }
+=end
   end
+
+  def gettemperature
+    #a = Random.rand(11)
+    #render json: a
+    host = '192.168.25.12'
+    #192.168.25.11
+    login = 'pi'
+    password = 'raspberry'
+
+    Net::SSH.start(host, login, :password => password) do |ssh|
+      #while(@@current_temperature != 'END')
+        output = ssh.exec!"tail -1 /home/pi/temperature.out"
+        @@current_temperature = output
+
+        puts "output"
+        #sleep
+      #end
+    end
+
+    puts @@current_temperature
+
+    render json: @@current_temperature
+
+  end
+
   private
+
+    # https://github.com/net-ssh/net-ssh
+    # https://stackoverflow.com/questions/5644110/how-do-i-transfer-files-using-ssh-and-scp-using-ruby-calls
+    # https://raspberrypi.stackexchange.com/questions/37920/how-do-i-set-up-networking-wifi-static-ip-address
+    # scp ../sensor/get_temperature.c pi@192.168.25.12:
+    def sendgcode
+
+      begin
+        host = '192.168.25.12'
+        #192.168.25.11
+        login = 'pi'
+        password = 'raspberry'
+
+        Net::SCP.start(host, login, :password => password) do |scp|
+          puts 'SCP Started!'
+          scp.upload('gcode', '/home/pi/')
+        end
+      rescue Exception => e
+        puts e.message
+        puts e.backtrace.inspect
+      end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_winding
       @winding = Winding.find(params[:id])
@@ -87,7 +158,7 @@ class WindingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def winding_params
-      params.require(:winding).permit(:length, :radius, :offset, :filamentWidth, :filamentLength, :gelPot, :density, :layers, :angle, :windingdate)
+      params.require(:winding).permit(:projectName, :length, :radius, :offset, :filamentWidth, :filamentLength, :gelPot, :density, :layers, :angle, :windingdate)
     end
 
     def generate_gcode
