@@ -1,54 +1,68 @@
 <p id="notice"><%= notice %></p>
+          
+   <div class="row container center-align">
+      <div class="col s12 m3">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          
+          <p>
+            <strong>Project Name:</strong>
+            <%= @winding.projectName %>
+          </p>
 
-<p>
-  <strong>Length:</strong>
-  <%= @winding.length %>
-</p>
+          <p>
+            <strong>Length:</strong>
+            <%= @winding.length %>
+          </p>
 
-<p>
-  <strong>Radius:</strong>
-  <%= @winding.radius %>
-</p>
+          <p>
+            <strong>Radius:</strong>
+            <%= @winding.radius %>
+          </p>
 
-<p>
-  <strong>Offset:</strong>
-  <%= @winding.offset %>
-</p>
+          <p>
+            <strong>Offset:</strong>
+            <%= @winding.offset %>
+          </p>
 
-<p>
-  <strong>Filamentwidth:</strong>
-  <%= @winding.filamentWidth %>
-</p>
+          <p>
+            <strong>Filamentwidth:</strong>
+            <%= @winding.filamentWidth %>
+          </p>
 
-<p>
-  <strong>Filamentlength:</strong>
-  <%= @winding.filamentLength %>
-</p>
+          <p>
+            <strong>Filamentlength:</strong>
+            <%= @winding.filamentLength %>
+          </p>
 
-<p>
-  <strong>Gelpot:</strong>
-  <%= @winding.gelPot %>
-</p>
+          <p>
+            <strong>Gelpot:</strong>
+            <%= @winding.gelPot %>
+          </p>
 
-<p>
-  <strong>Density:</strong>
-  <%= @winding.density %>
-</p>
+          <p>
+            <strong>Density:</strong>
+            <%= @winding.density %>
+          </p>
 
-<p>
-  <strong>Layers:</strong>
-  <%= @winding.layers %>
-</p>
+          <p>
+            <strong>Layers:</strong>
+            <%= @winding.layers %>
+          </p>
 
-<p>
-  <strong>Angle:</strong>
-  <%= @winding.angle %>
-</p>
+          <p>
+            <strong>Angle:</strong>
+            <%= @winding.angle %>
+          </p>
 
-<p>
-  <strong>Windingdate:</strong>
-  <%= @winding.windingdate %>
-</p>
+          <p>
+            <strong>Windingdate:</strong>
+            <%= @winding.windingdate %>
+          </p>
 
-<%= link_to 'Edit', edit_winding_path(@winding) %> |
+
+        </div>
+      </div>
+    </div>
+  </div>
 <%= link_to 'Back', windings_path %>

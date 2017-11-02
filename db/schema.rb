@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20171025114503) do
     t.string "winding_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "projectName"
   end
 
 end

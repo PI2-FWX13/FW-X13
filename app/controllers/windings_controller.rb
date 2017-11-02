@@ -5,6 +5,11 @@ class WindingsController < ApplicationController
   # GET /windings.json
   def index
     @windings = Winding.all
+    if params[:search]
+      @windings = Winding.search(params[:search]).order("created_at DESC")
+    else 
+      @windings = Winding.all.order('created_at DESC')
+    end
   end
 
   # GET /windings/1
@@ -80,7 +85,7 @@ class WindingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def winding_params
-      params.require(:winding).permit(:length, :radius, :offset, :filamentWidth, :filamentLength, :gelPot, :density, :layers, :angle, :windingdate)
+      params.require(:winding).permit(:projectName, :length, :radius, :offset, :filamentWidth, :filamentLength, :gelPot, :density, :layers, :angle, :windingdate)
     end
 
     def generate_gcode
