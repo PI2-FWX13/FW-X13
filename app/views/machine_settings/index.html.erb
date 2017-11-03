@@ -1,6 +1,15 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Machine Settings</h1>
+<h1 style="text-align: center;">Machine Settings</h1>
+</br>
+</br>
+
+<div style="text-align: center;">
+<a class="waves-effect waves-light btn-large" id="btn-index" href="/machine_settings/new/" >
+  <i class="material-icons right">arrow_forward</i>New Setting</a>
+</div>
+</br>
+</br>
 
 <table>
   <thead>
@@ -18,14 +27,14 @@
         <td><%= machine_setting.offset %></td>
         <td><%= machine_setting.maximum_size_mandril %></td>
         <td><%= machine_setting.size_radius %></td>
-        <td><%= link_to 'Show', machine_setting_path(machine_setting.id) %></td>
-        <td><%= link_to 'Edit', machine_setting_edit_path(machine_setting.id) %></td>
-        <td><%= link_to 'Destroy', machine_setting_destroy_path(machine_setting.id), data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', machine_setting_path(machine_setting.id), :class => 'waves-effect waves-light btn', :id => 'list-btn' %></td>
+        <td><%= link_to 'create', machine_setting_edit_path(machine_setting.id), :class => 'material-icons' , :id => 'list-icon' %></td>
+        <td><%= link_to 'delete', machine_setting_destroy_path(machine_setting.id), data: { confirm: 'Are you sure?' }, :class => 'material-icons', :id => 'list-icon' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
+<div id="back-btn">
+<%= link_to 'Back', index_sessions_path , :id => 'back-btn'%>
+</div>
 <br>
-
-<%= link_to 'New Machine Setting', machine_setting_new_path %>

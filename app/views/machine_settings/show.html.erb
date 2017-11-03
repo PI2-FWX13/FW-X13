@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-
+<div style="text-align: center;">
 <p>
   <strong>Offset:</strong>
   <%= @machine_setting.offset %>
@@ -14,6 +14,8 @@
   <strong>Size radius:</strong>
   <%= @machine_setting.size_radius %>
 </p>
-
-<%= link_to 'Edit', machine_setting_edit_path(@machine_setting.id) %> |
-<%= link_to 'Back', machine_setting_index_path %>
+<hr/>
+</div>
+<div id="back-btn">
+<%= link_to 'Back', machine_setting_index_path , :id => 'back-btn'%>
+</div>

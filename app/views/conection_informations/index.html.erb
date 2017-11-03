@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 </br>
-<h1 style="text-align: center;">Conection Informations</h1>
+<h1 style="text-align: center;">Connection Informations</h1>
 </br>
 </br>
 
@@ -24,9 +24,9 @@
       <tr>
         <td><%= conection_information.name %></td>
         <td><%= conection_information.ip %></td>
-        <td><%= link_to 'Connect', index_sessions_path%></td>
-        <td><%= link_to 'Edit', edit_conection_information_path(conection_information) %></td>
-        <td><%= link_to 'Destroy', conection_information, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Connect', index_sessions_path, :class => 'waves-effect waves-light btn', :id => 'list-btn'%></td>
+        <td><%= link_to 'create', edit_conection_information_path(conection_information), :class => 'material-icons' , :id => 'list-icon'%></td>
+        <td><%= link_to 'delete', conection_information, method: :delete, data: { confirm: 'Are you sure?' } , :class => 'material-icons', :id => 'list-icon'%></td>
       </tr>
     <% end %>
   </tbody>

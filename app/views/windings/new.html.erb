@@ -1,5 +1,18 @@
-<div style="width: 50%; float: left" >
-<h1 style="text-align: left;">Fillament winding</h1>
+<style>
+::-webkit-input-placeholder {
+   text-align: center;
+}
+.verticalLine {
+  right: 50%;
+}
+input{
+  text-align: center;
+}
+</style>
+
+<div style="width: 50%; float: left; border-right: thick solid #000000;" >
+  <div style="text-align: center; margin-right: 20px">
+<h1 style="text-align: center;">Fillament winding</h1>
 <%= bootstrap_form_for(@winding) do |f| %>
   <%= f.text_field :projectName, placeholder: "Name" %>
   <%= f.number_field :angle, placeholder: "90 graus" %>
@@ -12,16 +25,19 @@
   <%= f.number_field :density, placeholder: "60%" %>
   <%= f.number_field :layers, placeholder: "10" %>
   </br>
-  <div style="display: inline-block">
+  <div style="display: inline-block; text-align:right;">
     <%= f.submit "Start" %>
   <% end %>
+  <br/>
+  <div id="back-btn">
+  <%= link_to 'Back', choose_winding_path , :id => 'back-btn'%>
+  </div>
 
-  <a class="waves-effect waves-light btn" href="/mandril/edit/1" style="color: #fff">Edit Mandril</a>
-  <a class="waves-effect waves-light btn" href="/windings/choose" style="color: #fff">Back</a>
   </div>
 </div>
-
-<div style="text-align: left; margin-left: 52%">
+</div>
+<div style="text-align: left; margin-left: 52%;">
+  <div style="text-align: center;">
   <h1>Mandril Configuration</h1>
   <p style="font-size: 150%">
   <strong>Compriment:</strong>
@@ -35,4 +51,11 @@
   <strong>Type:</strong>
   <%= @mandril.mandril_type %>
   </p>
+  <br/>
+    <a class="waves-effect waves-light btn" href="/mandril/edit/1" style="color: #fff">Edit Mandril</a>
+  </div>
+  <br/>
+  <div id="back-btn">
+  <%= link_to 'Back', choose_winding_path , :id => 'back-btn'%>
+  </div>
 </div>

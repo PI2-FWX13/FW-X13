@@ -14,12 +14,20 @@
  *= require_self
  *= require rails_bootstrap_forms
  */
+ .content-btn{
+   text-align: center;
+   top: 20px;
+ }
+ #back-btn{color:black; text-align: center;}
+ #list-btn{color: #ffffff}
+ #list-icon{color: #000000}
+ .material-icons {color: #ffffff}
+
 
 @import "materialize/components/color";
   #header-nav {
      @extend .grey, .darken-2;
    }
-
 
   #footer-nav {
     @extend .grey, .darken-2;
@@ -40,7 +48,7 @@
   }
 
   .button-list{
-    margin-top: 15%;
+    margin-top: 5%;
   }
 
   .btn{
@@ -50,14 +58,22 @@
   .button-adjust{
       margin-bottom: 1%;
     }
+    #info-card {
+      @extend .indigo, .darken-1;
+       text-align: center;
+       margin-top: 3%;
+       width: 40%;
+     }
 @import 'materialize';
 h1 {text-align: center;}
-.content-btn{ text-align: center;}
+
 
 .brand-logo{
   height: 63px;
   text-align: right;
 }
+
+.list-icon{color:black;}
 
 .alertContainer {
   display: flex;

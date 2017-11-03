@@ -26,7 +26,9 @@
     <%= form.number_field :size_radius, id: :machine_setting_size_radius %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+    <div style="text-align:center;">
+      <div class="actions">
+        <%= form.submit 'Save Setting' , :class => 'waves-effect waves-light btn'%>
+    </div>
   </div>
 <% end %>

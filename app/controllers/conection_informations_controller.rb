@@ -7,11 +7,6 @@ class ConectionInformationsController < ApplicationController
     @conection_informations = ConectionInformation.all
   end
 
-  # GET /conection_informations/1
-  # GET /conection_informations/1.json
-  def show
-  end
-
   # GET /conection_informations/new
   def new
     @conection_information = ConectionInformation.new
@@ -28,11 +23,11 @@ class ConectionInformationsController < ApplicationController
 
     respond_to do |format|
       if @conection_information.save
-        format.html { redirect_to @conection_information, notice: 'Conection information was successfully created.' }
-        format.json { render :show, status: :created, location: @conection_information }
+        format.html { redirect_to 'index', notice: 'Conection information was successfully created.' }
+        format.json { render :index, status: :created }
       else
         format.html { render :new }
-        format.json { render json: @conection_information.errors, status: :unprocessable_entity }
+        format.json { render json: conection_information_path.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -42,11 +37,11 @@ class ConectionInformationsController < ApplicationController
   def update
     respond_to do |format|
       if @conection_information.update(conection_information_params)
-        format.html { redirect_to @conection_information, notice: 'Conection information was successfully updated.' }
-        format.json { render :show, status: :ok, location: @conection_information }
+        format.html { redirect_to 'index', notice: 'Conection information was successfully updated.' }
+        format.json { render :index, status: :ok }
       else
         format.html { render :edit }
-        format.json { render json: @conection_information.errors, status: :unprocessable_entity }
+        format.json { render json: conection_information_path.errors, status: :unprocessable_entity }
       end
     end
   end

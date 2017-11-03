@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :conection_informations
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root :to => "conection_informations#index"
+  root :to => "sessions#main"
 
   get 'windings/new/:type' => 'windings#new' , as: 'new_winding'
   post 'windings/' => 'windings#create' , as: 'create_windings'
@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   get 'windings/gettemperature' => 'windings#gettemperature' , as: 'gettemperature_winding'
 
   get 'sessions/index' => 'sessions#index' , as: 'index_sessions'
+  get 'sessions/main' => 'sessions#main' , as: 'main_sessions'
+
 
   get 'mandril/edit/:id' => 'mandrils#edit', as: 'mandril_edit'
   patch 'mandril/update/:id'=> 'mandrils#update', as: 'mandril_update'
