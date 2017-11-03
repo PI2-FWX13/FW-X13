@@ -20,9 +20,9 @@ ActiveRecord::Schema.define(version: 20171027023348) do
   end
 
   create_table "machine_settings", force: :cascade do |t|
-    t.integer "offset"
+    t.integer "maximum_offset"
     t.integer "maximum_size_mandril"
-    t.integer "size_radius"
+    t.integer "maximum_size_radius"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -36,20 +36,21 @@ ActiveRecord::Schema.define(version: 20171027023348) do
   end
 
   create_table "windings", force: :cascade do |t|
+    t.string "projectName"
     t.float "length"
     t.float "radius"
     t.float "offset"
-    t.float "filamentWidth"
-    t.float "filamentLength"
+    t.float "filament_width"
+    t.float "filament_length"
     t.float "gelPot"
     t.float "density"
     t.integer "layers"
     t.float "angle"
-    t.datetime "windingdate"
+    t.datetime "winding_date"
     t.string "winding_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "projectName"
+    t.string "project_name"
   end
 
 end

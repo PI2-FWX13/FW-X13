@@ -1,5 +1,5 @@
 class WindingsController < ApplicationController
-  before_action :set_winding, only: [:show, :edit, :update, :destroy, :monitor]
+  before_action :set_winding, only: [:show, :edit, :update, :destroy, :monitor, :graph]
 
   require 'net/scp'
   # GET /windings
@@ -42,7 +42,7 @@ class WindingsController < ApplicationController
     return if validate_winding_mandril(@winding)
     generate_gcode
     #validation for wire length
-    needed_wire = 360*@winding.length*(@winding.layers+1)/@winding.filamentWidth
+    needed_wire = 360*@winding.length*(@winding.layers+1)/@winding.filament_width
     #print "WIRE NEEDED " + needed_wire
 
 
@@ -74,13 +74,6 @@ end
   end
 
   def graph
-    id = session[:id]
-    if id == nil
-      redirect_to action: "new", type: "Cylinder"
-    else
-      @winding = Winding.find(id)
-    #  session[:id] = nil
-    end
   end
 
   def monitor
@@ -158,7 +151,7 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def winding_params
-      params.require(:winding).permit(:projectName, :length, :radius, :offset, :filamentWidth, :filamentLength, :gelPot, :density, :layers, :angle, :windingdate)
+      params.require(:winding).permit(:project_name, :length, :radius, :offset, :filament_width, :filament_length, :gelPot, :density, :layers, :angle, :winding_date)
     end
 
     def generate_gcode
@@ -166,7 +159,7 @@ end
       camadas = @winding.layers
       a = @winding.angle
       c = @winding.length
-      e = @winding.filamentWidth
+      e = @winding.filament_width
       o = @winding.offset
       r = @winding.radius
       x = 0

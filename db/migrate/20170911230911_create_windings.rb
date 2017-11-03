@@ -5,13 +5,13 @@ class CreateWindings < ActiveRecord::Migration[5.1]
       t.float :length
       t.float :radius
       t.float :offset
-      t.float :filamentWidth
-      t.float :filamentLength
+      t.float :filament_width
+      t.float :filament_length
       t.float :gelPot
       t.float :density
       t.integer :layers
       t.float :angle
-      t.datetime :windingdate
+      t.datetime :winding_date
       t.string :winding_type
 
       t.timestamps
