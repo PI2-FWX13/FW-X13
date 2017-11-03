@@ -16,12 +16,13 @@
  */
 
 @import "materialize/components/color";
-
   #header-nav {
-     @extend .grey, .darken-3;
+     @extend .grey, .darken-2;
    }
+
+
   #footer-nav {
-    @extend .grey, .darken-3;
+    @extend .grey, .darken-2;
     bottom:0;
     right:0;
     left:0;
@@ -50,11 +51,12 @@
       margin-bottom: 1%;
     }
 @import 'materialize';
-
+h1 {text-align: center;}
 .content-btn{ text-align: center;}
 
 .brand-logo{
   height: 63px;
+  text-align: right;
 }
 
 .alertContainer {

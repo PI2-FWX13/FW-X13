@@ -1,6 +1,14 @@
 <p id="notice"><%= notice %></p>
+</br>
+<h1 style="text-align: center;">Conection Informations</h1>
+</br>
+</br>
 
-<h1>Conection Informations</h1>
+<div style="text-align: center;">
+<a class="waves-effect waves-light btn-large" id="btn-index" href="/conection_informations/new/" >
+  <i class="material-icons right">arrow_forward</i>New connection</a>
+</div>
+</br>
 
 <table>
   <thead>
@@ -16,7 +24,7 @@
       <tr>
         <td><%= conection_information.name %></td>
         <td><%= conection_information.ip %></td>
-        <td><%= link_to 'Show', index_sessions_path%></td>
+        <td><%= link_to 'Connect', index_sessions_path%></td>
         <td><%= link_to 'Edit', edit_conection_information_path(conection_information) %></td>
         <td><%= link_to 'Destroy', conection_information, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -25,5 +33,3 @@
 </table>
 
 <br>
-
-<%= link_to 'New Conection Information', new_conection_information_path %>
