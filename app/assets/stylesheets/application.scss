@@ -23,12 +23,21 @@
  #list-icon{color: #000000}
  .material-icons {color: #ffffff}
 
+ #icon-stream {
+     background: image-url('searching.jpg');
+     height: 100px;
+     width: 100px;
+     /* Other styles here */
+ }
 
 @import "materialize/components/color";
   #header-nav {
      @extend .grey, .darken-2;
    }
-
+  #list-btn-red{
+    color: #ffffff;
+    @extend .red, .darken-2;
+  }
   #footer-nav {
     @extend .grey, .darken-2;
     bottom:0;

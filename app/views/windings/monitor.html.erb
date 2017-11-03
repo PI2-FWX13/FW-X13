@@ -1,104 +1,103 @@
 <%= javascript_include_tag('monitor.js') %>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="https://pingendo.com/assets/bootstrap/bootstrap-4.0.0-beta.1.css" type="text/css"> </head>
 
 <body>
-      <div class="container">
-         <div class="row">
-
-		      <div class="col s3 teal lighten-5">
-		      	  <h3>Winding Information</h3>
-		          <p>
-		            <strong>Temperature:</strong>
-                <div id="temperature">0</div>
-
-		            <%# @monitor.temperature %>
-		          </p>
-
-		          <p>
-		            <strong>Time to Complete:</strong>
-		            <%# @monitor.time%>
-		          </p>
-
-		          <p>
-		            <strong>Offset:</strong>
-		            <%# @winding.offset %>
-		          </p>
-		          <p>
-		          	<strong>Mandril:</strong>
-		          </p>
-		      </div>
-
-		      <div class="col s9 teal lighten-4">
-
-		      	<h3>Project Informations</h3>
-		         <p>
-            		<strong>Project Name:</strong>
-		            <%# @winding.projectName %>
-		          </p>
-
-		          <p>
-		            <strong>Length:</strong>
-		            <%# @winding.length %>
-		          </p>
-
-		          <p>
-		            <strong>Radius:</strong>
-		            <%# @winding.radius %>
-		          </p>
-
-		          <p>
-		            <strong>Offset:</strong>
-		            <%# @winding.offset %>
-		          </p>
-
-		          <p>
-		            <strong>Filamentwidth:</strong>
-		            <%# @winding.filamentWidth %>
-		          </p>
-
-		          <p>
-		            <strong>Filamentlength:</strong>
-		            <%# @winding.filamentLength %>
-		          </p>
-
-		          <p>
-		            <strong>Gelpot:</strong>
-		            <%# @winding.gelPot %>
-		          </p>
-
-		          <p>
-		            <strong>Density:</strong>
-		            <%# @winding.density %>
-		          </p>
-
-		          <p>
-		            <strong>Layers:</strong>
-		            <%# @winding.layers %>
-		          </p>
-
-		          <p>
-		            <strong>Angle:</strong>
-		            <%# @winding.angle %>
-		          </p>
-
-		          <p>
-		            <strong>Windingdate:</strong>
-		            <%# @winding.windingdate %>
-		          </p>
-		      </div>
-
-	      <div class="col s9">
-	       <h2>Streaming</h2>
-          <iframe src="192.168.25.12:8554" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe>
-
-	       <div>MONITOR</div>
-
-	       <a class="waves-effect waves-light btn"><i class="material-icons left"></i>Show</a>
-	       <a class="waves-effect waves-light btn"><i class="material-icons left"></i>Hide</a>
-	       <a class="waves-effect red btn"><i class="material-icons left"></i>STOP</a>
-	      </div>
-
-
-
-    </div>
+  <div class="py-5 text-center bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="pb-3 text-secondary">Winding monitor</h1>
+        </div>
       </div>
-    </body>
+      <div class="row"> </div>
+    </div>
+  </div>
+  <div class="py-5 text-center text-white opaque-overlay gradient-overlay" id="streaming">
+    <div class="container">
+      <div class="row">
+        <div class="p-4 col-md-4"> <i class="d-block fa fa-3x fa-bullseye"></i>
+          <h2 class="my-3">Status</h2>
+          <p><b>Winding</b></p>
+        </div>
+        <div class="col-md-4 p-4"> <i class="d-block fa fa-3x fa-th"></i>
+          <h2 class="my-3">Temperature</h2>
+          <p><b>35º</b></p>
+        </div>
+        <div class="col-md-4 p-4"> <i class="d-block fa fa-3x fa-clock-o"></i>
+          <h2 class="my-3">Remaining Time</h2>
+          <p><b>2h 31m</b></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="py-5">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="text-left col-md-12">
+          <div class="row my-5">
+            <div class="col-2 text-center col-md-4"><i class="d-block fa fa-window-restore fa-3x"></i></div>
+            <div class="col-10 col-md-4">
+              <h4 class="text-primary">Project name</h4>
+              <p><b>Rocket Combustion Chamber</b></p>
+            </div>
+            <div class="col-10 col-md-4">
+              <a class="btn btn-primary" id="list-btn-red" href="">Stop
+                <br>
+              </a>
+              <a class="btn btn-primary" id="list-btn" href="">Resume
+                <br>
+              </a>
+            </div>
+          </div>
+          <div class="row my-5">
+            <div class="col-2 text-center col-md-4"><i class="d-block mx-auto fa  fa-clone fa-3x"></i></div>
+            <div class="col-10 col-md-4">
+              <h4 class="text-primary">Project Info</h4>
+              <p><b>Angle: </b>75º
+                <br><b>Layers: </b>10
+                <br><b>Length: </b>1000 mm
+                <br><b>Radius: </b>300 mm
+                <br><b>Offset</b>: 30 mm
+                <br><b>Filament Width:</b> 1000000 mm&nbsp;
+                <br><b>Filament length: </b>3 mm
+                <br><b>GelPot: </b>30000 s
+                <br><b>Start Time: </b>10/11/2017 02:00:42 PM</p>
+            </div>
+
+          </div>
+          <div class="row my-5">
+            <div class="col-2 text-center col-md-4"><i class="d-block fa  fa-video-camera fa-3x"></i></div>
+            <div class="col-10 col-md-4">
+              <h4 class="text-primary">Streaming status</h4>
+              <p><b>Offline</b></p>
+            </div>
+            <div class="col-10 col-md-4">
+              <a class="waves-effect waves-light btn" id="list-btn" href="">Start
+                <br>
+              </a>
+              <a class="waves-effect waves-light btn" id="list-btn" href="">Stop
+                <br>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="embed-responsive embed-responsive-4by3" style="border: thick solid #000000;">
+          Streaming unavaliable
+          <iframe src="192.168.25.12:8554" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620" style="position: absolute ;"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+</body>
