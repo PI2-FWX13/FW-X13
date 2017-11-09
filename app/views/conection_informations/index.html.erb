@@ -25,8 +25,8 @@
         <td><%= conection_information.name %></td>
         <td><%= conection_information.ip %></td>
         <td><%= link_to 'Connect', index_sessions_path, :class => 'waves-effect waves-light btn', :id => 'list-btn'%></td>
-        <td><%= link_to 'create', edit_conection_information_path(conection_information), :class => 'material-icons' , :id => 'list-icon'%></td>
-        <td><%= link_to 'delete', conection_information, method: :delete, data: { confirm: 'Are you sure?' } , :class => 'material-icons', :id => 'list-icon'%></td>
+        <td><%= link_to 'create', conection_information_new_path(conection_information), :class => 'material-icons' , :id => 'list-icon'%></td>
+        <td><%= link_to 'delete', conection_information_destroy_path(conection_information.id), data: { confirm: 'Are you sure?' } , :class => 'material-icons', :id => 'list-icon'%></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,6 +1,33 @@
 <h1>New Conection Information</h1>
 
-<%= render 'form', conection_information: @conection_information %>
+<%= form_for @conection_information, url: {action: 'create'} do |form| %>
+  <% if @conection_information.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@conection_information.errors.count, "error") %> prohibited this conection_information from being saved:</h2>
+
+      <ul>
+      <% @conection_information.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :conection_information_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ip %>
+    <%= form.text_field :ip, id: :conection_information_ip %>
+  </div>
+  <div class="actions">
+    <div style="text-align:center;">
+    <%= form.submit 'Save connection' , :class => 'waves-effect waves-light btn'%>
+    </div>
+  </div>
+<% end %>
 <div id="back-btn">
-<%= link_to 'Back', conection_informations_path , :id => 'back-btn'%>
+<%= link_to 'Back', conection_information_index_path , :id => 'back-btn'%>
 </div>

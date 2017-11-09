@@ -1,4 +1,4 @@
-<%= form_with(model: conection_information, local: true) do |form| %>
+<%= form_for(@conection_information) do |form| %>
   <% if conection_information.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(conection_information.errors.count, "error") %> prohibited this conection_information from being saved:</h2>

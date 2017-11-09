@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :conection_informations
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root :to => "sessions#main"
 
@@ -28,4 +27,11 @@ Rails.application.routes.draw do
   get 'machine_settings/edit/:id' => 'machine_settings#edit', as: 'machine_setting_edit'
   patch 'machine_settings/:id/edit', controller: 'machine_settings', action: 'update', as: 'machine_setting_update'
   get 'machine_settings/destroy/:id', controller: 'machine_settings', action: 'destroy', as: 'machine_setting_destroy'
+
+  get 'conection_informations/new', to: 'conection_informations#new', as: 'conection_information_new'
+  post 'conection_informations/', to: 'conection_informations#create', as:'conection_information_create'
+  get 'conection_informations/', to: 'conection_informations#index', as: 'conection_information_index'
+  get 'conection_information/edit/:id', to: 'conection_informations#edit', as: 'conection_information_edit'
+  patch 'conection_information/update/:id', to: 'conection_informations#update', as: 'conection_information_update'
+  get 'conection_informations/destroy/:id', to: 'conection_informations#destroy', as: 'conection_information_destroy'
 end

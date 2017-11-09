@@ -23,7 +23,7 @@ class ConectionInformationsController < ApplicationController
 
     respond_to do |format|
       if @conection_information.save
-        format.html { redirect_to 'index', notice: 'Conection information was successfully created.' }
+        format.html { redirect_to conection_information_index_path, notice: 'Conection information was successfully created.' }
         format.json { render :index, status: :created }
       else
         format.html { render :new }
@@ -37,7 +37,7 @@ class ConectionInformationsController < ApplicationController
   def update
     respond_to do |format|
       if @conection_information.update(conection_information_params)
-        format.html { redirect_to 'index', notice: 'Conection information was successfully updated.' }
+        format.html { redirect_to conection_information_index_path, notice: 'Conection information was successfully updated.' }
         format.json { render :index, status: :ok }
       else
         format.html { render :edit }
@@ -51,7 +51,7 @@ class ConectionInformationsController < ApplicationController
   def destroy
     @conection_information.destroy
     respond_to do |format|
-      format.html { redirect_to conection_informations_url, notice: 'Conection information was successfully destroyed.' }
+      format.html { redirect_to conection_information_index_path, notice: 'Conection information was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
