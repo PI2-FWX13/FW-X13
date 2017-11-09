@@ -107,7 +107,7 @@ end
   def gettemperature
     #a = Random.rand(11)
     #render json: a
-    host = '192.168.25.12'
+    host = '10.42.0.51'
     #192.168.25.11
     login = 'pi'
     password = 'raspberry'
