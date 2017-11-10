@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get 'windings/show/:id' => 'windings#show' , as: 'show_winding'
   get 'windings/destroy/:id', controller: 'windings', action: 'destroy', as: 'destroy_winding'
   get 'windings/choose', controller: 'windings', action: 'choose' , as: 'choose_winding'
-  get 'windings/monitor', controller: 'windings', action: 'monitor' , as: 'monitor_winding'
+  get 'windings/monitor/:id', controller: 'windings', action: 'monitor' , as: 'monitor_winding'
   get 'windings/graph', controller: 'windings', action: 'graph', as: 'monitor_graph'
 
   get 'windings/gettemperature' => 'windings#gettemperature' , as: 'gettemperature_winding'

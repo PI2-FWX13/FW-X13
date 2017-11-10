@@ -1,5 +1,5 @@
 class WindingsController < ApplicationController
-  before_action :set_winding, only: [:show, :edit, :update, :destroy]
+  before_action :set_winding, only: [:show, :edit, :update, :destroy, :monitor]
 
   require 'net/scp'
   # GET /windings
@@ -50,7 +50,7 @@ class WindingsController < ApplicationController
       @winding.windingdate = DateTime.now.to_date
       if @winding.save
         sendgcode
-        redirect_to :action => "monitor"
+        redirect_to monitor_winding_path(@winding.id)
       else
         #deal with errors
       end
