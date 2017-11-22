@@ -60,6 +60,7 @@ RSpec.describe ConectionInformationsController, type: :controller do
       expect(response).to redirect_to(action: :index)
 
     end
+
     it "It not will create a new conection informations" do
       post :create, params: {:conection_information => {:name => "" , :ip => ""}}
 
@@ -78,6 +79,23 @@ RSpec.describe ConectionInformationsController, type: :controller do
       patch :update, params: {id: c.id, :conection_information => {:name => "New name"} }
 
       expect(ConectionInformation.find(c.id).name).to eq("New name")
+    end
+  end
+
+  describe "GET #destroy" do
+
+    it "It will delete an objects" do
+
+      ConectionInformation.destroy_all
+
+      c = ConectionInformation.new(:name=> "Nova Maquina4", :ip=> "10.10.10.04")
+      c.save
+
+      expect(ConectionInformation.count).to eq(1)
+
+      get :destroy, params: {id: c.id}
+
+      expect(ConectionInformation.count).to eq(0)
     end
   end
 end
