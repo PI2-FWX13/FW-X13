@@ -67,4 +67,15 @@ RSpec.describe MachineSettingsController, type: :controller do
   		end
   	end
 
+    describe "GET #edit" do
+      it "renders the new template" do
+
+        m = MachineSetting.new(:offset => 123, :maximum_size_mandril => 1001, :size_radius => 284)
+        m.save
+        get :edit, params: {:id => m.id}
+
+        expect(response).to render_template("edit")
+        expect(response).to have_http_status(200)
+      end
+    end
 end
