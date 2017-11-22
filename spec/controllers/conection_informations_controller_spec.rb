@@ -38,4 +38,16 @@ RSpec.describe ConectionInformationsController, type: :controller do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe "GET #edit" do
+    it "renders the new template" do
+
+      c = ConectionInformation.new(:name=> "Nova Maquina3", :ip=> "10.10.10.03")
+      c.save
+      get :edit, params: {:id => c.id}
+
+      expect(response).to render_template("edit")
+      expect(response).to have_http_status(200)
+    end
+  end
 end

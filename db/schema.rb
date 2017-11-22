@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20171025114503) do
   end
 
   create_table "windings", force: :cascade do |t|
+    t.string "project_name"
     t.float "length"
     t.float "radius"
     t.float "offset"
@@ -49,7 +50,6 @@ ActiveRecord::Schema.define(version: 20171025114503) do
     t.string "winding_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "project_name"
   end
 
 end
