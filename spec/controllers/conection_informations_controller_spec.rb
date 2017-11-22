@@ -50,4 +50,22 @@ RSpec.describe ConectionInformationsController, type: :controller do
       expect(response).to have_http_status(200)
     end
   end
+
+  describe "POST #create"
+
+  it "It will create a new conection informations" do
+    post :create, params: {:conection_information => {:name=> "Nova Maquina2", :ip=> "10.10.10.02"}}
+
+    expect(response).to have_http_status(302)
+    expect(response).to redirect_to(action: :index)
+
+  end
+
+  it "It not will create a new conection informations" do
+    post :create, params: {:conection_information => {:name => "" , :ip => ""}}
+
+    expect(response).to have_http_status(302)
+    expect(response).to redirect_to(action: :index)
+
+  end
 end
