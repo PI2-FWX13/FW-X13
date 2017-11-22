@@ -51,21 +51,33 @@ RSpec.describe ConectionInformationsController, type: :controller do
     end
   end
 
-  describe "POST #create"
+  describe "POST #create" do
 
-  it "It will create a new conection informations" do
-    post :create, params: {:conection_information => {:name=> "Nova Maquina2", :ip=> "10.10.10.02"}}
+    it "It will create a new conection informations" do
+      post :create, params: {:conection_information => {:name=> "Nova Maquina2", :ip=> "10.10.10.02"}}
 
-    expect(response).to have_http_status(302)
-    expect(response).to redirect_to(action: :index)
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(action: :index)
 
+    end
+    it "It not will create a new conection informations" do
+      post :create, params: {:conection_information => {:name => "" , :ip => ""}}
+
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(action: :index)
+
+    end
   end
 
-  it "It not will create a new conection informations" do
-    post :create, params: {:conection_information => {:name => "" , :ip => ""}}
+  describe "PATCH #update" do
+    it "It will update an existing objects" do
 
-    expect(response).to have_http_status(302)
-    expect(response).to redirect_to(action: :index)
+      c = ConectionInformation.new(:name=> "Nova Maquina4", :ip=> "10.10.10.04")
+      c.save
 
+      patch :update, params: {id: c.id, :conection_information => {:name => "New name"} }
+
+      expect(ConectionInformation.find(c.id).name).to eq("New name")
+    end
   end
 end
