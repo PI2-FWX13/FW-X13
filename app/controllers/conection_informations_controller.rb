@@ -41,8 +41,8 @@ class ConectionInformationsController < ApplicationController
         Timeout::timeout(5) {
           server = Net::SSH.start(host, login, :password => password)
         }
-    rescue => ex  
-      flash[:error] = "Connection Filed"     
+    rescue => ex
+      flash[:error] = "Connection Filed"
     end
   end
 
