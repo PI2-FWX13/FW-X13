@@ -41,4 +41,14 @@ RSpec.describe MachineSettingsController, type: :controller do
     end
   end
 
+  describe "PATCH #update" do
+    it "It will update an existing objects" do
+
+      m = MachineSetting.new(:offset => 123, :maximum_size_mandril => 1001, :size_radius => 284)
+      m.save
+
+      patch :update, params: {id: m.id, :machine_setting => {:maximum_size_mandril => 01}}
+    end
+  end
+
 end
