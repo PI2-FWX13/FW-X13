@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   get 'windings/gettemperature' => 'windings#gettemperature' , as: 'gettemperature_winding'
   get 'windings/graph/:id', controller: 'windings', action: 'graph', as: 'monitor_graph'
 
-  get 'sessions/index' => 'sessions#index' , as: 'index_sessions'
   get 'sessions/main' => 'sessions#main' , as: 'main_sessions'
 
   get 'mandril/edit/:id' => 'mandrils#edit', as: 'mandril_edit'
@@ -32,4 +31,5 @@ Rails.application.routes.draw do
   get 'conection_information/edit/:id', to: 'conection_informations#edit', as: 'conection_information_edit'
   patch 'conection_information/update/:id', to: 'conection_informations#update', as: 'conection_information_update'
   get 'conection_informations/destroy/:id', to: 'conection_informations#destroy', as: 'conection_information_destroy'
+  get 'conection_informations/connect/:id', to: 'conection_informations#connect', as: 'conection_information_connect'
 end

@@ -1,5 +1,5 @@
 class ConectionInformationsController < ApplicationController
-  before_action :set_conection_information, only: [:show, :edit, :update, :destroy]
+  before_action :set_conection_information, only: [:show, :edit, :update, :destroy, :connect]
 
   # GET /conection_informations
   # GET /conection_informations.json
@@ -21,14 +21,10 @@ class ConectionInformationsController < ApplicationController
   def create
     @conection_information = ConectionInformation.new(conection_information_params)
 
-    respond_to do |format|
-      if @conection_information.save
-        format.html { redirect_to conection_information_index_path, notice: 'Conection information was successfully created.' }
-        format.json { render :index, status: :created }
-      else
-        format.html { render :new }
-        format.json { render json: conection_information_path.errors, status: :unprocessable_entity }
-      end
+    if @conection_information.save
+      redirect_to conection_information_connect_path(@conection_information)
+    else
+     #do something
     end
   end
 
@@ -53,6 +49,15 @@ class ConectionInformationsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to conection_information_index_path, notice: 'Conection information was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def connect
+    if current_connection(@conection_information)
+      flash[:success] = 'Connection was made successfully'
+    else
+      flash[:error] = 'Connection cannot be made'
+      redirect_to conection_information_index_path
     end
   end
 
