@@ -39,25 +39,15 @@ class WindingsController < ApplicationController
     @winding.winding_type = mandril.mandril_type
 
     #print "WIRE NEEDED " + needed_wire
-    return if validate_winding_mandril(@winding)
+    return unless validate_winding(@winding)
     generate_gcode
-    #validation for wire length
-    needed_wire = 360*@winding.length*(@winding.layers+1)/@winding.filament_width
-    #print "WIRE NEEDED " + needed_wire
-
-
-    if @winding.filamentLength > needed_wire
-      @winding.windingdate = DateTime.now.to_date
-      if @winding.save
-        sendgcode
-        redirect_to monitor_winding_path(@winding.id)
-      else
-        #deal with errors
-      end
-  #  else
+    @winding.windingdate = DateTime.now.to_date
+    if @winding.save
+      sendgcode
+      redirect_to monitor_winding_path(@winding.id)
+    else
       #deal with errors
-  #  end
-  end
+    end
 end
 
   # DELETE /windings/1
