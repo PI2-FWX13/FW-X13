@@ -78,4 +78,21 @@ RSpec.describe MachineSettingsController, type: :controller do
         expect(response).to have_http_status(200)
       end
     end
+
+    describe "GET #destroy" do
+
+      it "It will delete an objects" do
+
+        MachineSetting.destroy_all
+
+        m = MachineSetting.new(:offset => 1234, :maximum_size_mandril => 1004, :size_radius => 285)
+        m.save
+
+        expect(MachineSetting.count).to eq(1)
+
+        get :destroy, params: {id: m.id}
+
+        expect(MachineSetting.count).to eq(0)
+      end
+    end
 end
