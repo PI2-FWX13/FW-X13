@@ -51,4 +51,20 @@ RSpec.describe MachineSettingsController, type: :controller do
     end
   end
 
+  describe 'Webpage index and show methods' do
+
+  		it 'should show a webpage' do
+
+        get :show, params:{id: MachineSetting.first.id}
+
+        expect(response).to have_http_status(200)
+  		end
+
+  		it 'should return index view' do
+  			get :index
+  			expect(response).to have_http_status(200)
+
+  		end
+  	end
+
 end
