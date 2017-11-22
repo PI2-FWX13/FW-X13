@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171027023348) do
+ActiveRecord::Schema.define(version: 20171025114503) do
 
   create_table "conection_informations", force: :cascade do |t|
     t.string "name"
@@ -36,7 +36,6 @@ ActiveRecord::Schema.define(version: 20171027023348) do
   end
 
   create_table "windings", force: :cascade do |t|
-    t.string "projectName"
     t.float "length"
     t.float "radius"
     t.float "offset"

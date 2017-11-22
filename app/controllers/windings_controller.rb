@@ -41,7 +41,7 @@ class WindingsController < ApplicationController
     #print "WIRE NEEDED " + needed_wire
     return unless validate_winding(@winding)
     generate_gcode
-    @winding.windingdate = DateTime.now.to_date
+    @winding.winding_date = DateTime.now.to_date
     if @winding.save
       sendgcode
       redirect_to monitor_winding_path(@winding.id)
