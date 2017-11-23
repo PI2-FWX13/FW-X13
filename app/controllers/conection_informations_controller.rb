@@ -28,6 +28,27 @@ class ConectionInformationsController < ApplicationController
     end
   end
 
+  def validate_connection
+    #a = Random.rand(11)
+    #render json: a
+    host = '10.42.0.96'
+    #192.168.25.11
+    login = 'pi'
+    password = 'raspberry'
+
+    begin
+
+        server = Net::SSH.start(host, login, :password => password)
+        Timeout.timeout 6 do 
+          server.exec!"tail -1 /home/pi/temperature.out"
+        end  
+      end
+
+    rescue => ex  
+      puts 'Deu ruim'
+    end
+  end
+
   # PATCH/PUT /conection_informations/1
   # PATCH/PUT /conection_informations/1.json
   def update
