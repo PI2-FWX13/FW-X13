@@ -26,8 +26,8 @@
       <tbody>
         <% for winding in @windings %>
           <tr>
-            <td><%= winding.projectName %></td>
-            <td><%= winding.windingdate %></td>
+            <td><%= winding.project_name %></td>
+            <td><%= winding.winding_date %></td>
             <td><%= link_to 'Details', show_winding_path(winding), :class => 'waves-effect waves-light btn', :id => 'list-btn' %></td>
             <td><%= link_to 'delete', destroy_winding_path(winding), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'material-icons', :id => 'list-icon' %></td>
           </tr>
@@ -40,4 +40,3 @@
 
 <div/>
 <!-- </div> -->
-<br>
