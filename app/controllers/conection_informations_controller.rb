@@ -55,14 +55,10 @@ class ConectionInformationsController < ApplicationController
     password = 'raspberry'
 
     begin
-
-        server = Net::SSH.start(host, login, :password => password)
-        Timeout.timeout 6 do 
-          server.exec!"tail -1 /home/pi/temperature.out"
-        end  
-      end
-
-    rescue => ex  
+        Timeout::timeout(5) {
+          server = Net::SSH.start(host, login, :password => password)
+        }
+    rescue => ex
       puts 'Deu ruim'
     end
   end
