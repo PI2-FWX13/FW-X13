@@ -69,6 +69,6 @@ class MachineSettingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def machine_setting_params
-      params.require(:machine_setting).permit(:offset, :maximum_size_mandril, :size_radius)
+      params.require(:machine_setting).permit(:maximum_offset, :maximum_size_mandril, :maximum_size_radius)
     end
 end
