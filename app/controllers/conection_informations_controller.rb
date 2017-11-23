@@ -5,6 +5,7 @@ class ConectionInformationsController < ApplicationController
   # GET /conection_informations.json
   def index
     @conection_informations = ConectionInformation.all
+    validate_connection
   end
 
   # GET /conection_informations/new
@@ -35,15 +36,11 @@ class ConectionInformationsController < ApplicationController
     #192.168.25.11
     login = 'pi'
     password = 'raspberry'
-
+    puts 'AGORA VAI'
     begin
-
-        server = Net::SSH.start(host, login, :password => password)
-        Timeout.timeout 6 do 
-          server.exec!"tail -1 /home/pi/temperature.out"
-        end  
-      end
-
+        Timeout::timeout(5) {
+          server = Net::SSH.start(host, login, :password => password)
+        }
     rescue => ex  
       puts 'Deu ruim'
     end
