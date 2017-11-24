@@ -1,24 +1,36 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[![BuildStatus](https://travis-ci.org/PI2-FWX13/FW-X13.svg?branch=devel)](https://travis-ci.org/PI2-FWX13/FW-X13.svg)
 
 Things you may want to cover:
 
 * Ruby version
 
+  2.4
+
+* Rails version
+
+  5.0
+
 * System dependencies
 
-* Configuration
+  After installing Ruby and the Rails Framework, run:
+  ```
+  Bundle install
+  ```
+  To install dependecies
 
 * Database creation
 
-* Database initialization
+  ```
+  rails db:create
+  rails db:migrate
+  ```
 
 * How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
+  ```
+  bundle exec rspec
+  ```
 * Deployment instructions
 
 * ...
