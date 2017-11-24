@@ -22,6 +22,30 @@
     <%= form.label :ip %>
     <%= form.text_field :ip, id: :conection_information_ip %>
   </div>
+
+  
+  <div id='wifi-config'  style="display:none">
+
+    <div class="field">
+      <%= form.label :wifi_name %>
+      <%= form.text_field :wifi_name, id: :conection_information_wifi_name %>
+    </div>
+
+    <div class="field">
+      <%= form.label :password %>
+      <%= form.text_field :password, id: :conection_information_password %>
+    </div>
+
+  </div>
+
+
+  
+  <div class="actions"">
+    <div style="text-align:center;">
+      <button class="waves-effect waves-light btn" onclick='show_hide()'>Config Wifi</button>
+    </div>
+  </div>
+
   <div class="actions">
     <div style="text-align:center;">
     <%= form.submit 'Save connection' , :class => 'waves-effect waves-light btn'%>
@@ -31,3 +55,14 @@
 <div id="back-btn">
 <%= link_to 'Back', conection_information_index_path , :id => 'back-btn'%>
 </div>
+
+
+<script type="text/javascript">
+   function show_hide() { 
+        if(document.getElementById('wifi-config').style.display=='none') { 
+            document.getElementById('wifi-config').style.display='block'; 
+        } else {
+          document.getElementById('wifi-config').style.display='none';
+        }
+  }
+</script>
