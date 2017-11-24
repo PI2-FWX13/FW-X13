@@ -169,12 +169,12 @@ end
 
           if i%2==1
             file.write("G1 Y #{delay} Z #{r+o}\n")
-            x = (360*c/e*i)/l
+            x = (2*3.1415296*r*c/e*i)/l
             file.write("G1 X #{x} Y #{c+delay} Z #{r+o}\n")
 
           elsif i%2==0
               file.write("G1 Y #{c - delay} Z #{r+o}\n")
-              x = (360*c/e*i)/l
+              x = (2*3.1415296*r*c/e*i)/l
               file.write("G1 X #{x} Y #{-1*delay} Z #{r+o}\n")
             end
       end
