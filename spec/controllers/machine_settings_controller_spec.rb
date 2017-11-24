@@ -4,7 +4,7 @@ RSpec.describe MachineSettingsController, type: :controller do
 
   before :all do
     MachineSetting.destroy_all
-    MachineSetting.create! :offset=> "100", :maximum_size_mandril=> "80", :size_radius=> "65"
+    MachineSetting.create! :maximum_offset=> "100", :maximum_size_mandril=> "80", :maximum_size_radius=> "65"
   end
 
   describe "GET #index" do
@@ -27,14 +27,14 @@ RSpec.describe MachineSettingsController, type: :controller do
   describe "POST #create" do
 
     it "It will create a new machine settings" do
-      post :create, params: {:machine_setting => {:offset=> "101", :maximum_size_mandril=> "81", :size_radius=> "66"}}
+      post :create, params: {:machine_setting => {:maximum_offset=> "101", :maximum_size_mandril=> "81", :maximum_size_radius=> "66"}}
 
-      expect(response).to have_http_status(302)
+      expect(MachineSetting.count).to be(2)
 
     end
 
     it "It not will create a new machine setting" do
-      post :create, params: {:machine_setting => {:offset=> "", :maximum_size_mandril=> "", :size_radius=> ""}}
+      post :create, params: {:machine_setting => {:maximum_offset=> 11, :maximum_size_mandril=> 12, :maximum_size_radius=> 13}}
 
       expect(response).to have_http_status(302)
 
@@ -44,7 +44,7 @@ RSpec.describe MachineSettingsController, type: :controller do
   describe "PATCH #update" do
     it "It will update an existing objects" do
 
-      m = MachineSetting.new(:offset => 123, :maximum_size_mandril => 1001, :size_radius => 284)
+      m = MachineSetting.new(:maximum_offset=> 1, :maximum_size_mandril=> 2, :maximum_size_radius=> 3)
       m.save
 
       patch :update, params: {id: m.id, :machine_setting => {:maximum_size_mandril => 01}}
@@ -70,7 +70,7 @@ RSpec.describe MachineSettingsController, type: :controller do
     describe "GET #edit" do
       it "renders the new template" do
 
-        m = MachineSetting.new(:offset => 123, :maximum_size_mandril => 1001, :size_radius => 284)
+        m = MachineSetting.new(:maximum_offset=> 5, :maximum_size_mandril=> 6, :maximum_size_radius=> 7)
         m.save
         get :edit, params: {:id => m.id}
 
@@ -85,7 +85,7 @@ RSpec.describe MachineSettingsController, type: :controller do
 
         MachineSetting.destroy_all
 
-        m = MachineSetting.new(:offset => 1234, :maximum_size_mandril => 1004, :size_radius => 285)
+        m = MachineSetting.new(:maximum_offset=> 8, :maximum_size_mandril=> 9, :maximum_size_radius=> 10)
         m.save
 
         expect(MachineSetting.count).to eq(1)
