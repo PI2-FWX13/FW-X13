@@ -42,7 +42,7 @@ class ConectionInformationsController < ApplicationController
           server = Net::SSH.start(host, login, :password => password)
         }
     rescue => ex  
-      puts 'Deu ruim'
+      flash[:error] = "Connection Filed"     
     end
   end
 
