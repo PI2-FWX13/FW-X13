@@ -41,25 +41,8 @@ class ConectionInformationsController < ApplicationController
         Timeout::timeout(5) {
           server = Net::SSH.start(host, login, :password => password)
         }
-    rescue => ex
+    rescue => ex  
       flash[:error] = "Connection Filed"
-    end
-  end
-
-  def validate_connection
-    #a = Random.rand(11)
-    #render json: a
-    host = '10.42.0.96'
-    #192.168.25.11
-    login = 'pi'
-    password = 'raspberry'
-
-    begin
-        Timeout::timeout(5) {
-          server = Net::SSH.start(host, login, :password => password)
-        }
-    rescue => ex
-      puts 'Deu ruim'
     end
   end
 
