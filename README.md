@@ -1,4 +1,6 @@
-# README
+# Filament winding X13
+
+This project was created to suport the Filament Winding Machine created at the PI2 class at FGA - UNB
 
 [![BuildStatus](https://travis-ci.org/PI2-FWX13/FW-X13.svg?branch=devel)](https://travis-ci.org/PI2-FWX13/FW-X13.svg)
 
