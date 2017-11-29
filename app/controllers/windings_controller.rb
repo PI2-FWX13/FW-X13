@@ -40,16 +40,17 @@ class WindingsController < ApplicationController
     mandril = Mandril.first
     @winding = Winding.new(winding_params)
     @winding.winding_type = mandril.mandril_type
-
-    #print "WIRE NEEDED " + needed_wire
+    @winding.winding_date = DateTime.now.to_date
     return unless validate_winding(@winding)
     generate_gcode
-    @winding.winding_date = DateTime.now.to_date
+
+    #print "WIRE NEEDED " + needed_wire
     if @winding.save
         sendgcode
       redirect_to monitor_winding_path(@winding.id)
     else
-      #deal with errors
+      flash[:error] = 'Windings cannot be started'
+      redirect_to new_winding_path(mandril.mandril_type)
     end
 end
 
@@ -57,10 +58,8 @@ end
   # DELETE /windings/1.json
   def destroy
     @winding.destroy
-    respond_to do |format|
-      format.html { redirect_to windings_url, notice: 'Winding was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    flash[:notice] = 'Winding was successfully destroyed'
+    redirect_to windings_path
   end
 
   def choose

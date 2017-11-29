@@ -28,8 +28,8 @@ class MachineSettingsController < ApplicationController
 
     respond_to do |format|
       if @machine_setting.save
-        format.html { redirect_to @machine_setting, notice: 'Machine setting was successfully created.' }
-        format.json { render :show, status: :created, location: @machine_setting }
+        flash[:success] = 'Machine setting was successfully created'
+        redirect_to machine_setting_path(@machine_setting.id)
       else
         format.html { render :new }
         format.json { render json: @machine_setting.errors, status: :unprocessable_entity }
@@ -42,8 +42,8 @@ class MachineSettingsController < ApplicationController
   def update
     respond_to do |format|
       if @machine_setting.update(machine_setting_params)
-        format.html { redirect_to @machine_setting, notice: 'Machine setting was successfully updated.' }
-        format.json { render :show, status: :ok, location: @machine_setting }
+        flash[:success] = 'Machine setting was successfully updated'
+        redirect_to machine_setting_path(@machine_setting.id)
       else
         format.html { render :edit }
         format.json { render json: @machine_setting.errors, status: :unprocessable_entity }

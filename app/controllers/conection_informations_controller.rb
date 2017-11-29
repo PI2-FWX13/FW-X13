@@ -21,11 +21,14 @@ class ConectionInformationsController < ApplicationController
   # POST /conection_informations.json
   def create
     @conection_information = ConectionInformation.new(conection_information_params)
-
     if @conection_information.save
       redirect_to conection_information_connect_path(@conection_information)
     else
-     #do something
+      flash[:error] = [""]
+      @conection_information.errors.messages.each do |key, array|
+        flash[:error] << "#{key} #{array[0]}"
+      end
+      redirect_to conection_information_new_path
     end
   end
 
@@ -51,11 +54,11 @@ class ConectionInformationsController < ApplicationController
   def update
     respond_to do |format|
       if @conection_information.update(conection_information_params)
-        format.html { redirect_to conection_information_index_path, notice: 'Conection information was successfully updated.' }
-        format.json { render :index, status: :ok }
+        flash[:notice] = 'Connection was successfully updated'
+        redirect_to conection_information_index_path
       else
         format.html { render :edit }
-        format.json { render json: conection_information_path.errors, status: :unprocessable_entity }
+        format.json { render json: @conection_information.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -64,10 +67,8 @@ class ConectionInformationsController < ApplicationController
   # DELETE /conection_informations/1.json
   def destroy
     @conection_information.destroy
-    respond_to do |format|
-      format.html { redirect_to conection_information_index_path, notice: 'Conection information was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    flash[:notice] = 'Connection was successfully destroyed'
+    redirect_to conection_information_index_path
   end
 
   def connect
