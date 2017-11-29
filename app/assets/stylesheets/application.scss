@@ -95,6 +95,7 @@ h1 {text-align: center;}
 }
 
 .alert.alert-error,
+.alert.alert-notice,
 .alert.alert-success{
   border-radius:0;
   color:#FFF;
@@ -109,6 +110,10 @@ h1 {text-align: center;}
 
 .alert.alert-success {
   background: #40ba0d;
+}
+
+.alert.alert-notice {
+  background: #0d8eba;
 }
 
 .alert.alert-error {

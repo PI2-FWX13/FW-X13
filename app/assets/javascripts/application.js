@@ -21,8 +21,8 @@
 $(document).ready(function(){
 
   $(".alert").hide().fadeIn(1000);
-  setTimeout("$(\".alert-success\").show().fadeOut(1000);", 10000);
-  setTimeout("$(\".alert-notice\").show().fadeOut(1000);", 10000);
-  setTimeout("$(\".alert-error\").show().fadeOut(1000);", 10000);
+  setTimeout("$(\".alert-success\").show().fadeOut(1000);", 3000);
+  setTimeout("$(\".alert-notice\").show().fadeOut(1000);", 3000);
+  setTimeout("$(\".alert-error\").show().fadeOut(1000);", 3000);
 
 })
