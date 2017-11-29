@@ -2,6 +2,9 @@ class WindingsController < ApplicationController
   before_action :set_winding, only: [:show, :edit, :update, :destroy, :monitor, :graph]
 
   require 'net/scp'
+  require 'bigdecimal'
+  require 'bigdecimal/util'
+
   # GET /windings
   # GET /windings.json
   def index
@@ -43,7 +46,7 @@ class WindingsController < ApplicationController
     generate_gcode
     @winding.winding_date = DateTime.now.to_date
     if @winding.save
-      sendgcode
+        sendgcode
       redirect_to monitor_winding_path(@winding.id)
     else
       #deal with errors
@@ -120,18 +123,26 @@ end
     def sendgcode
 
       begin
-        host = '192.168.25.12'
+        host = '10.42.0.43'
         #192.168.25.11
         login = 'pi'
         password = 'raspberry'
 
         Net::SCP.start(host, login, :password => password) do |scp|
           puts 'SCP Started!'
-          scp.upload('gcode', '/home/pi/')
+          scp.upload('gcode', '/home/pi/CodigoMotorComMelhorComunicacao')
         end
       rescue Exception => e
         puts e.message
         puts e.backtrace.inspect
+      end
+      Net::SSH.start(host, login, :password => password) do |ssh|
+        #while(@@current_temperature != 'END')
+          output = ssh.exec!"cd /home/pi/CodigoMotorComMelhorComunicacao/ && Make && Make run"
+
+          puts "Mandando rodar"
+          #sleep
+        #end
       end
     end
     # Use callbacks to share common setup or constraints between actions.
@@ -154,7 +165,7 @@ end
       r = @winding.radius
       x = 0
 
-      file = File.open("gcode","w")
+      file = File.open("gcode","w+")
 
       radians = a * Math::PI / 180
       delay = (r + o)/ Math.tan(radians)
@@ -168,16 +179,24 @@ end
       (1..camadas*mult+1).step(1) do |i|
 
           if i%2==1
-            file.write("G1 Y #{delay} Z #{r+o}\n")
+            file.write("G1 Y #{delay.to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
             x = (2*3.1415296*r*c/e*i)/l
-            file.write("G1 X #{x} Y #{c+delay} Z #{r+o}\n")
+            file.write("G1 X #{x.to_d.truncate(5).to_f} Y #{(c+delay).to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
+            if i == camadas*mult+1
+              file.write("G1 X #{x.to_d.truncate(5).to_f} Y #{c+delay.to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
+            end
 
           elsif i%2==0
-              file.write("G1 Y #{c - delay} Z #{r+o}\n")
+              file.write("G1 Y #{(c - delay).to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
               x = (2*3.1415296*r*c/e*i)/l
-              file.write("G1 X #{x} Y #{-1*delay} Z #{r+o}\n")
+              file.write("G1 X #{x.to_d.truncate(5).to_f} Y #{(-1*delay).to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
+              if i == camadas*mult+1
+                file.write("G1 X #{x.to_d.truncate(5).to_f} Y #{(-1*delay).to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
+              end
             end
       end
+
       file.close
+
     end
 end
