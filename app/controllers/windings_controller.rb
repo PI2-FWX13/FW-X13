@@ -40,7 +40,7 @@ class WindingsController < ApplicationController
     mandril = Mandril.first
     @winding = Winding.new(winding_params)
     @winding.winding_type = mandril.mandril_type
-    @winding.winding_date = DateTime.now.to_date
+    @winding.winding_date = Time.now
     return unless validate_winding(@winding)
     generate_gcode
 
@@ -183,7 +183,7 @@ end
 
           if i%2==1
             file.write("G1 Y #{delay.to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
-            x = (2*3.1415296*r*c/e*i)/l
+            x = (2*Math::PI*r*c/e*i)/l
             file.write("G1 X #{x.to_d.truncate(5).to_f} Y #{(c+delay).to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
             if i == camadas*mult+1
               file.write("G1 X #{x.to_d.truncate(5).to_f} Y #{c+delay.to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
@@ -191,14 +191,16 @@ end
 
           elsif i%2==0
               file.write("G1 Y #{(c - delay).to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
-              x = (2*3.1415296*r*c/e*i)/l
+              x = (2*Math::PI*r*c/e*i)/l
               file.write("G1 X #{x.to_d.truncate(5).to_f} Y #{(-1*delay).to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
               if i == camadas*mult+1
                 file.write("G1 X #{x.to_d.truncate(5).to_f} Y #{(-1*delay).to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
               end
             end
-      end
-
+      end 
+      velocity = ((30 * 2 * Math::PI * r) / 60).to_i 
+      seconds =  (x / velocity).to_i
+      @winding.estimated_time = Time.at(seconds).utc
       file.close
 
     end

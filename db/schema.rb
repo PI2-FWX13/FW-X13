@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171025114503) do
+ActiveRecord::Schema.define(version: 20171130202248) do
 
   create_table "conection_informations", force: :cascade do |t|
     t.string "name"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20171025114503) do
     t.integer "maximum_size_radius"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "conection_information_id"
+    t.index ["conection_information_id"], name: "index_machine_settings_on_conection_information_id"
   end
 
   create_table "mandrils", force: :cascade do |t|
@@ -48,8 +50,9 @@ ActiveRecord::Schema.define(version: 20171025114503) do
     t.float "density"
     t.integer "layers"
     t.float "angle"
-    t.datetime "winding_date"
+    t.time "winding_date"
     t.string "winding_type"
+    t.time "estimated_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -4,7 +4,12 @@ class MachineSettingsController < ApplicationController
   # GET /machine_settings
   # GET /machine_settings.json
   def index
-    @machine_settings = MachineSetting.all
+    @machine_settings = MachineSetting.find_by(conection_information_id: $current_connection.id)
+    if @machine_settings.nil?
+      redirect_to machine_setting_new_path
+    else
+      redirect_to machine_setting_path(@machine_settings.id)
+    end
   end
 
   # GET /machine_settings/1
@@ -17,15 +22,11 @@ class MachineSettingsController < ApplicationController
     @machine_setting = MachineSetting.new
   end
 
-  # GET /machine_settings/1/edit
-  def edit
-  end
-
   # POST /machine_settings
   # POST /machine_settings.json
   def create
     @machine_setting = MachineSetting.new(machine_setting_params)
-
+    @machine_setting.conection_information_id = $current_connection.id
     if @machine_setting.save
       flash[:success] = [""]
       flash[:success] <<'Machine setting was successfully created'
@@ -37,30 +38,6 @@ class MachineSettingsController < ApplicationController
       end
       redirect_to machine_setting_new_path
     end
-  end
-
-  # PATCH/PUT /machine_settings/1
-  # PATCH/PUT /machine_settings/1.json
-  def update
-    if @machine_setting.update(machine_setting_params)
-      flash[:success] = [""]
-      flash[:success] << 'Machine setting was successfully updated'
-      redirect_to machine_setting_path(@machine_setting.id)
-    else
-      flash[:error] = [""]
-      @machine_setting.errors.messages.each do |key, array|
-        flash[:error] << "#{key} #{array[0]}"
-      end
-      redirect_to machine_setting_edit_path(@machine_setting.id)
-    end
-  end
-
-  # DELETE /machine_settings/1
-  # DELETE /machine_settings/1.json
-  def destroy
-    @machine_setting.destroy
-    flash[:notice] = [""]
-    flash[:notice] << 'Machine setting was successfully destroyed'
   end
 
   private
