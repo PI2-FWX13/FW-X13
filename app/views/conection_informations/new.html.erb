@@ -19,8 +19,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :ip %>
-    <%= form.text_field :ip, id: :conection_information_ip %>
+    <%= form.label :ip_cable %>
+    <%= form.text_field :ip_cable, id: :conection_information_ip %>
   </div>
 
   
@@ -38,14 +38,11 @@
 
   </div>
 
-
-  
-  <div class="actions"">
-    <div style="text-align:center;">
-      <button class="waves-effect waves-light btn" onclick='show_hide()'>Config Wifi</button>
-    </div>
+  <div style='text-align:center;'>
+    <a class="waves-effect waves-light btn" onclick='show_hide()'>Config Wifi</a>
   </div>
-
+  </br>
+  </br>
   <div class="actions">
     <div style="text-align:center;">
     <%= form.submit 'Save connection' , :class => 'waves-effect waves-light btn'%>

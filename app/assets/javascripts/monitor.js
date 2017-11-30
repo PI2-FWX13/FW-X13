@@ -10,12 +10,6 @@ function getTemperature(){
   });
 }
 
-getTemperature();
-setInterval(function(){
-    getTemperature();
-},3000);
-
-
 function startCamera() {
   console.log('startCamera');
   $.ajax({

@@ -14,7 +14,8 @@ ActiveRecord::Schema.define(version: 20171025114503) do
 
   create_table "conection_informations", force: :cascade do |t|
     t.string "name"
-    t.string "ip"
+    t.string "ip_cable"
+    t.string "ip_wifi"
     t.string "wifi_name"
     t.string "password"
     t.datetime "created_at", null: false

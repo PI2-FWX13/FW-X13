@@ -5,7 +5,6 @@ class ConectionInformationsController < ApplicationController
   # GET /conection_informations.json
   def index
     @conection_informations = ConectionInformation.all
-    validate_connection
   end
 
   # GET /conection_informations/new
@@ -23,27 +22,47 @@ class ConectionInformationsController < ApplicationController
     @conection_information = ConectionInformation.new(conection_information_params)
 
     if @conection_information.save
+      if @conection_information.wifi_name && @conection_information.password
+        puts 'Viu as parada'
+        set_wifi(@conection_information)                
+      end 
       redirect_to conection_information_connect_path(@conection_information)
     else
      #do something
     end
   end
 
-  def validate_connection
+  def validate_connection(conection_information)
     #a = Random.rand(11)
     #render json: a
-    host = '10.42.0.96'
     #192.168.25.11
     login = 'pi'
     password = 'raspberry'
     puts 'AGORA VAI'
-    begin
+
+    if conection_information.ip_wifi
+      begin
+
         Timeout::timeout(5) {
-          server = Net::SSH.start(host, login, :password => password)
+          server = Net::SSH.start(conection_information.ip_wifi, login, :password => password)
         }
-    rescue => ex  
-      flash[:error] = "Connection Filed"     
+
+        return true
+      rescue => ex  
+        flash[:error] = "Wifi Connection Filed"     
+      end        
     end
+
+      begin
+        Timeout::timeout(5) {
+          server = Net::SSH.start(conection_information.ip_cable, login, :password => password)
+        }
+
+        return true
+      rescue => ex  
+        flash[:error] = "Cable Connection Filed"     
+        return false
+      end
   end
 
   # PATCH/PUT /conection_informations/1
@@ -71,12 +90,45 @@ class ConectionInformationsController < ApplicationController
   end
 
   def connect
-    if current_connection(@conection_information)
-      flash[:success] = 'Connection was made successfully'
-    else
-      flash[:error] = 'Connection cannot be made'
-      redirect_to conection_information_index_path
+
+    if validate_connection(@conection_information)
+
+      if current_connection(@conection_information)
+        flash[:success] = 'Connection was made successfully'
+        redirect_to conection_information_connect_path(@conection_information)
+      else
+        flash[:error] = 'Connection cannot be made'
+        redirect_to conection_information_index_path
+      end
+
     end
+  end
+
+  def set_wifi(conection_information)
+    begin
+        Timeout::timeout(15) {
+          login = 'pi'
+          password = 'raspberry'
+          puts 'Vai conectar'
+          puts conection_information.ip_cable
+          Net::SSH.start(conection_information.ip_cable, login, :password => password) do |ssh|
+            puts 'Conectou'
+            #ssh.exec! 'sudo su'
+            puts 'Conectou 1'
+
+            result = ssh.exec! "sudo echo -e 'network={ \n    ssid=" + '"' + conection_information.wifi_name + '"' + " \n    psk=" + '"' + conection_information.password + '"' + "\n }' >> /etc/wpa_supplicant/wpa_supplicant.conf"
+            puts result
+            ssh.exec! 'sudo wpa_cli -i wlan0 reconfigure'
+            puts 'Conectou 3'
+            conection_information.ip_wifi = ssh.exec! "sudo ifconfig wlan0 | grep 'inet addr' | cut -d ':' -f 2 | cut -d ' ' -f 1" 
+            puts 'Fez a bagaça'
+            puts result
+          end
+        }
+    rescue => ex  
+        flash[:error] = "First Cable Connection Filed"     
+    end
+
   end
 
   private
@@ -87,6 +139,6 @@ class ConectionInformationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def conection_information_params
-      params.require(:conection_information).permit(:name, :ip)
+      params.require(:conection_information).permit(:name, :ip_cable, :ip_wifi, :wifi_name, :password)
     end
 end
