@@ -8,14 +8,16 @@ class MandrilsController < ApplicationController
   # PATCH/PUT /mandrils/1
   # PATCH/PUT /mandrils/1.json
   def update
-    respond_to do |format|
-      if @mandril.update(mandril_params)
-        format.html { redirect_to new_winding_path(@mandril.mandril_type), notice: 'Mandril was successfully updated.' }
-        format.json { render :show, status: :ok, location: @mandril }
-      else
-        format.html { render :edit }
-        format.json { render json: @mandril.errors, status: :unprocessable_entity }
+    if @mandril.update(mandril_params)
+      flash[:notice] = [""]
+      flash[:notice] << 'Mandril was successfully updated'
+      redirect_to new_winding_path(@mandril.mandril_type)
+    else
+      flash[:error] = [""]
+      @mandril.errors.messages.each do |key, array|
+        flash[:error] << "#{key} #{array[0]}"
       end
+      redirect_to mandril_edit_path(@mandril.id)
     end
   end
 

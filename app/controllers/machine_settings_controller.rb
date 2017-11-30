@@ -26,28 +26,32 @@ class MachineSettingsController < ApplicationController
   def create
     @machine_setting = MachineSetting.new(machine_setting_params)
 
-    respond_to do |format|
-      if @machine_setting.save
-        flash[:success] = 'Machine setting was successfully created'
-        redirect_to machine_setting_path(@machine_setting.id)
-      else
-        format.html { render :new }
-        format.json { render json: @machine_setting.errors, status: :unprocessable_entity }
+    if @machine_setting.save
+      flash[:success] = [""]
+      flash[:success] <<'Machine setting was successfully created'
+      redirect_to machine_setting_path(@machine_setting.id)
+    else
+      flash[:error] = [""]
+      @machine_setting.errors.messages.each do |key, array|
+        flash[:error] << "#{key} #{array[0]}"
       end
+      redirect_to machine_setting_new_path
     end
   end
 
   # PATCH/PUT /machine_settings/1
   # PATCH/PUT /machine_settings/1.json
   def update
-    respond_to do |format|
-      if @machine_setting.update(machine_setting_params)
-        flash[:success] = 'Machine setting was successfully updated'
-        redirect_to machine_setting_path(@machine_setting.id)
-      else
-        format.html { render :edit }
-        format.json { render json: @machine_setting.errors, status: :unprocessable_entity }
+    if @machine_setting.update(machine_setting_params)
+      flash[:success] = [""]
+      flash[:success] << 'Machine setting was successfully updated'
+      redirect_to machine_setting_path(@machine_setting.id)
+    else
+      flash[:error] = [""]
+      @machine_setting.errors.messages.each do |key, array|
+        flash[:error] << "#{key} #{array[0]}"
       end
+      redirect_to machine_setting_edit_path(@machine_setting.id)
     end
   end
 
@@ -55,10 +59,8 @@ class MachineSettingsController < ApplicationController
   # DELETE /machine_settings/1.json
   def destroy
     @machine_setting.destroy
-    respond_to do |format|
-      format.html { redirect_to machine_setting_index_path, notice: 'Machine setting was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    flash[:notice] = [""]
+    flash[:notice] << 'Machine setting was successfully destroyed'
   end
 
   private

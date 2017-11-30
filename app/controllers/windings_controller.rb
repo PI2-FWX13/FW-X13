@@ -49,8 +49,11 @@ class WindingsController < ApplicationController
         sendgcode
       redirect_to monitor_winding_path(@winding.id)
     else
-      flash[:error] = 'Windings cannot be started'
-      redirect_to new_winding_path(mandril.mandril_type)
+      flash[:error] = [""]
+      @winding.errors.messages.each do |key, array|
+        flash[:error] << "#{key} #{array[0]}"
+      end
+      redirect_to new_winding_path(@winding.winding_type)
     end
 end
 
@@ -58,7 +61,8 @@ end
   # DELETE /windings/1.json
   def destroy
     @winding.destroy
-    flash[:notice] = 'Winding was successfully destroyed'
+    flash[:notice] = [""]
+    flash[:notice] << 'Winding was successfully destroyed'
     redirect_to windings_path
   end
 

@@ -52,14 +52,16 @@ class ConectionInformationsController < ApplicationController
   # PATCH/PUT /conection_informations/1
   # PATCH/PUT /conection_informations/1.json
   def update
-    respond_to do |format|
-      if @conection_information.update(conection_information_params)
-        flash[:notice] = 'Connection was successfully updated'
-        redirect_to conection_information_index_path
-      else
-        format.html { render :edit }
-        format.json { render json: @conection_information.errors, status: :unprocessable_entity }
+    if @conection_information.update(conection_information_params)
+      flash[:notice] = [""]
+      flash[:notice] << 'Connection was successfully updated'
+      redirect_to conection_information_index_path
+    else
+      flash[:error] = [""]
+      @conection_information.errors.messages.each do |key, array|
+        flash[:error] << "#{key} #{array[0]}"
       end
+      redirect_to conection_information_edit_path(@conection_information.id)
     end
   end
 
@@ -67,15 +69,18 @@ class ConectionInformationsController < ApplicationController
   # DELETE /conection_informations/1.json
   def destroy
     @conection_information.destroy
-    flash[:notice] = 'Connection was successfully destroyed'
+    flash[:notice] = [""]
+    flash[:notice] << 'Connection was successfully destroyed'
     redirect_to conection_information_index_path
   end
 
   def connect
     if current_connection(@conection_information)
-      flash[:success] = 'Connection was made successfully'
+      flash[:success] = [""]
+      flash[:success] << 'Connection was made successfully'
     else
-      flash[:error] = 'Connection cannot be made'
+      flash[:error] = [""]
+      flash[:error] << 'Connection cannot be made'
       redirect_to conection_information_index_path
     end
   end
