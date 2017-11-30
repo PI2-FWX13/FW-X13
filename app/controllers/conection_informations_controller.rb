@@ -20,12 +20,13 @@ class ConectionInformationsController < ApplicationController
   # POST /conection_informations.json
   def create
     @conection_information = ConectionInformation.new(conection_information_params)
+    if @conection_information.wifi_name && @conection_information.password
+      set_wifi(@conection_information)
 
-    if @conection_information.save
-      if @conection_information.wifi_name && @conection_information.password
+      if @conection_information.save
+        current_connection(@conection_information)
         puts 'Viu as parada'
-        set_wifi(@conection_information)                
-      end 
+      end
       redirect_to conection_information_connect_path(@conection_information)
     else
      #do something
@@ -38,29 +39,33 @@ class ConectionInformationsController < ApplicationController
     #192.168.25.11
     login = 'pi'
     password = 'raspberry'
-    puts 'AGORA VAI'
-
+    puts 'AGORA VAI\n\n'
     if conection_information.ip_wifi
       begin
+        puts "tururu"
 
-        Timeout::timeout(5) {
-          server = Net::SSH.start(conection_information.ip_wifi, login, :password => password)
+        puts conection_information.ip_wifi
+        Timeout::timeout(10) {
+          server = Net::SSH.start(conection_information.ip_wifi, login, :password => password,:number_of_password_prompts => 0, :non_interactive => true)
+
         }
-
+        puts "deu certo PORRA"
         return true
-      rescue => ex  
-        flash[:error] = "Wifi Connection Filed"     
-      end        
+      rescue => ex
+        flash[:error] = "Wifi Connection Failed"
+      end
     end
-
+      puts "ssadasdasda"
       begin
-        Timeout::timeout(5) {
-          server = Net::SSH.start(conection_information.ip_cable, login, :password => password)
+        Timeout::timeout(10) {
+          puts "QQQQQQQ"
+          server = Net::SSH.start(conection_information.ip_cable, login, :password => password,:number_of_password_prompts => 0, :non_interactive => true)
         }
+        puts "deu certo PORRA 2"
 
         return true
-      rescue => ex  
-        flash[:error] = "Cable Connection Filed"     
+      rescue => ex
+        flash[:error] = "Cable Connection Failed"
         return false
       end
   end
@@ -90,12 +95,19 @@ class ConectionInformationsController < ApplicationController
   end
 
   def connect
-
+    if(@current_connection == nil)
+      puts "ESTA NYLO"
+      @conection_information = ConectionInformation.find_by_id(params[:id])
+    else
+      puts "NAO ESTA NULO"
+      @conection_information = @current_connection
+    end
+    puts @conection_information.ip_wifi
+    puts "^^^^^^^"
     if validate_connection(@conection_information)
-
       if current_connection(@conection_information)
         flash[:success] = 'Connection was made successfully'
-        redirect_to conection_information_connect_path(@conection_information)
+        #redirect_to conection_information_connect_path(@conection_information)
       else
         flash[:error] = 'Connection cannot be made'
         redirect_to conection_information_index_path
@@ -110,23 +122,26 @@ class ConectionInformationsController < ApplicationController
           login = 'pi'
           password = 'raspberry'
           puts 'Vai conectar'
-          puts conection_information.ip_cable
-          Net::SSH.start(conection_information.ip_cable, login, :password => password) do |ssh|
+          puts @conection_information.ip_cable
+          Net::SSH.start(@conection_information.ip_cable, login, :password => password) do |ssh|
             puts 'Conectou'
             #ssh.exec! 'sudo su'
             puts 'Conectou 1'
 
-            result = ssh.exec! "sudo echo -e 'network={ \n    ssid=" + '"' + conection_information.wifi_name + '"' + " \n    psk=" + '"' + conection_information.password + '"' + "\n }' >> /etc/wpa_supplicant/wpa_supplicant.conf"
+            result = ssh.exec! "sudo echo -e 'network={ \n    ssid=" + '"' + @conection_information.wifi_name + '"' + " \n    psk=" + '"' + @conection_information.password + '"' + "\n }' >> /etc/wpa_supplicant/wpa_supplicant.conf"
             puts result
             ssh.exec! 'sudo wpa_cli -i wlan0 reconfigure'
             puts 'Conectou 3'
-            conection_information.ip_wifi = ssh.exec! "sudo ifconfig wlan0 | grep 'inet addr' | cut -d ':' -f 2 | cut -d ' ' -f 1" 
-            puts 'Fez a bagaça'
+            result = ssh.exec! "sudo ifconfig wlan0 | grep 'inet addr' | cut -d ':' -f 2 | cut -d ' ' -f 1"
+            @conection_information.ip_wifi = result
+            puts @conection_information.ip_wifi
+            current_connection(@conection_information)
+            puts 'Fez a bagaça AAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
             puts result
           end
         }
-    rescue => ex  
-        flash[:error] = "First Cable Connection Filed"     
+    rescue => ex
+        flash[:error] = "First Cable Connection Filed"
     end
 
   end

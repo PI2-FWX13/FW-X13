@@ -67,24 +67,7 @@ end
   end
 
   def monitor
-=begin
-    thr = Thread.new {
-      host = '192.168.25.12'
-      #192.168.25.11
-      login = 'pi'
-      password = 'raspberry'
 
-      Net::SSH.start(host, login, :password => password) do |ssh|
-        while(@@current_temperature != 'END')
-          output = ssh.exec!"tail -1 temperature.out"
-          @@current_temperature = output
-
-          puts "output"
-          sleep
-        end
-      end
-    }
-=end
   end
 
   def gettemperature
