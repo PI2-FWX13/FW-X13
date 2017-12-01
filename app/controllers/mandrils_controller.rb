@@ -8,6 +8,7 @@ class MandrilsController < ApplicationController
   # PATCH/PUT /mandrils/1
   # PATCH/PUT /mandrils/1.json
   def update
+    return if validate_mandril(@mandril)
     if @mandril.update(mandril_params)
       flash[:notice] = [""]
       flash[:notice] << 'Mandril was successfully updated'

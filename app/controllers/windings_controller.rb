@@ -1,5 +1,6 @@
 class WindingsController < ApplicationController
   before_action :set_winding, only: [:show, :edit, :update, :destroy, :monitor, :graph]
+  before_action :verify_have_machine_setting, only: [:choose, :new, :monitor]
 
   require 'net/scp'
   require 'bigdecimal'
