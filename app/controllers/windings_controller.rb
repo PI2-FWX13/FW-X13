@@ -139,28 +139,27 @@ end
           puts e.message
           puts e.backtrace.inspect
         end
-        Net::SSH.start(host, login, :password => password) do |ssh|
-          #while(@@current_temperature != 'END')
-            ssh.exec!"cd /home/pi/CodigoMotorComMelhorComunicacao/ && nohup make run &"
-            #ssh.exec!"cd ~/ && ./get_temperature"
-
-            puts "rodando motor"
-          #  sleep
-          #end
-        end
-      #}
-      thr2 = Thread.new {
-
-        Net::SSH.start(host, login, :password => password) do |ssh|
-          #while(@@current_temperature != 'END')
-            #ssh.exec!"cd /home/pi/CodigoMotorComMelhorComunicacao/ && make && make run"
-            ssh.exec!"cd ~/ && nohup ./get_temperature &"
-
-            puts "rodando temp"
-            #sleep
-          #end
-        end
-      }
+        begin
+          Timeout::timeout(10) {
+            Net::SSH.start(host, login, :password => password) do |ssh|
+                ssh.exec!"cd /home/pi/CodigoMotorComMelhorComunicacao/ && nohup make run &"
+                puts "rodando motor"
+            end
+          }
+      rescue => ex
+        #END OF INPUT
+      end
+      begin
+        Timeout::timeout(10) {
+          Net::SSH.start(host, login, :password => password) do |ssh|
+              ssh.exec!"cd ~/ && nohup ./get_temperature &"
+              puts "rodando temp"
+          end
+        }
+      rescue Exception => e
+        puts e.message
+        puts e.backtrace.inspect
+      end
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_winding
