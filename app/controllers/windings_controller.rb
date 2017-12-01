@@ -141,7 +141,7 @@ end
         end
         Net::SSH.start(host, login, :password => password) do |ssh|
           #while(@@current_temperature != 'END')
-            ssh.exec!"cd /home/pi/CodigoMotorComMelhorComunicacao/ && make && make run"
+            ssh.exec!"cd /home/pi/CodigoMotorComMelhorComunicacao/ && nohup make run &"
             #ssh.exec!"cd ~/ && ./get_temperature"
 
             puts "rodando motor"
@@ -154,7 +154,7 @@ end
         Net::SSH.start(host, login, :password => password) do |ssh|
           #while(@@current_temperature != 'END')
             #ssh.exec!"cd /home/pi/CodigoMotorComMelhorComunicacao/ && make && make run"
-            ssh.exec!"cd ~/ && ./get_temperature"
+            ssh.exec!"cd ~/ && nohup ./get_temperature &"
 
             puts "rodando temp"
             #sleep
