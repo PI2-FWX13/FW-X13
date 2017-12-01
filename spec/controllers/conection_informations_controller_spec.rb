@@ -57,7 +57,6 @@ RSpec.describe ConectionInformationsController, type: :controller do
       post :create, params: {:conection_information => {:name=> "Nova Maquina2", :ip=> "10.10.10.02"}}
 
       expect(ConectionInformation.count).to be(2)
-      expect(response).to redirect_to(action: :index)
 
     end
   end
