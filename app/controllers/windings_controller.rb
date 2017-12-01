@@ -96,7 +96,7 @@ end
   def gettemperature
     #a = Random.rand(11)
     #render json: a
-    host = '10.42.0.51'
+    host = $current_connection.ip
     #192.168.25.11
     login = 'pi'
     password = 'raspberry'
@@ -105,7 +105,7 @@ end
       #while(@@current_temperature != 'END')
         output = ssh.exec!"tail -1 /home/pi/temperature.out"
         @@current_temperature = output
-
+        puts @@current_temperature
         puts "output"
         #sleep
       #end
@@ -124,29 +124,43 @@ end
     # https://raspberrypi.stackexchange.com/questions/37920/how-do-i-set-up-networking-wifi-static-ip-address
     # scp ../sensor/get_temperature.c pi@192.168.25.12:
     def sendgcode
+      #thr = Thread.new {
+        begin
+          host = '10.42.0.43'
+          #192.168.25.11
+          login = 'pi'
+          password = 'raspberry'
 
-      begin
-        host = '10.42.0.43'
-        #192.168.25.11
-        login = 'pi'
-        password = 'raspberry'
-
-        Net::SCP.start(host, login, :password => password) do |scp|
-          puts 'SCP Started!'
-          scp.upload('gcode', '/home/pi/CodigoMotorComMelhorComunicacao')
+          Net::SCP.start(host, login, :password => password) do |scp|
+            puts 'SCP Started!'
+            scp.upload('gcode', '/home/pi/CodigoMotorComMelhorComunicacao')
+          end
+        rescue Exception => e
+          puts e.message
+          puts e.backtrace.inspect
         end
-      rescue Exception => e
-        puts e.message
-        puts e.backtrace.inspect
-      end
-      Net::SSH.start(host, login, :password => password) do |ssh|
-        #while(@@current_temperature != 'END')
-          output = ssh.exec!"cd /home/pi/CodigoMotorComMelhorComunicacao/ && Make && Make run"
+        Net::SSH.start(host, login, :password => password) do |ssh|
+          #while(@@current_temperature != 'END')
+            ssh.exec!"cd /home/pi/CodigoMotorComMelhorComunicacao/ && make && make run"
+            #ssh.exec!"cd ~/ && ./get_temperature"
 
-          puts "Mandando rodar"
-          #sleep
-        #end
-      end
+            puts "rodando motor"
+          #  sleep
+          #end
+        end
+      #}
+      thr2 = Thread.new {
+
+        Net::SSH.start(host, login, :password => password) do |ssh|
+          #while(@@current_temperature != 'END')
+            #ssh.exec!"cd /home/pi/CodigoMotorComMelhorComunicacao/ && make && make run"
+            ssh.exec!"cd ~/ && ./get_temperature"
+
+            puts "rodando temp"
+            #sleep
+          #end
+        end
+      }
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_winding
@@ -183,22 +197,30 @@ end
 
           if i%2==1
             file.write("G1 Y #{delay.to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
+            file.write("G1 Y #{delay.to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
+
             x = (2*Math::PI*r*c/e*i)/l
             file.write("G1 X #{x.to_d.truncate(5).to_f} Y #{(c+delay).to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
-            if i == camadas*mult+1
-              file.write("G1 X #{x.to_d.truncate(5).to_f} Y #{c+delay.to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
-            end
+            file.write("G1 X #{x.to_d.truncate(5).to_f} Y #{(c+delay).to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
+            #if i == camadas*mult+1
+            #  file.write("G1 X #{x.to_d.truncate(5).to_f} Y #{c+delay.to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
+            #end
 
           elsif i%2==0
               file.write("G1 Y #{(c - delay).to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
+              file.write("G1 Y #{(c - delay).to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
+
               x = (2*Math::PI*r*c/e*i)/l
+
               file.write("G1 X #{x.to_d.truncate(5).to_f} Y #{(-1*delay).to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
-              if i == camadas*mult+1
-                file.write("G1 X #{x.to_d.truncate(5).to_f} Y #{(-1*delay).to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
-              end
+              file.write("G1 X #{x.to_d.truncate(5).to_f} Y #{(-1*delay).to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
+
+              #if i == camadas*mult+1
+              #  file.write("G1 X #{x.to_d.truncate(5).to_f} Y #{(-1*delay).to_d.truncate(5).to_f} Z #{(r+o).to_d.truncate(5).to_f}\n")
+              #end
             end
-      end 
-      velocity = ((30 * 2 * Math::PI * r) / 60).to_i 
+      end
+      velocity = ((30 * 2 * Math::PI * r) / 60).to_i
       seconds =  (x / velocity).to_i
       @winding.estimated_time = Time.at(seconds).utc
       file.close
